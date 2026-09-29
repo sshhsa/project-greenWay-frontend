@@ -5,6 +5,28 @@
   min-width: 0;
 }
 
+.profileButton {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 4px 8px 4px 4px;
+  border-radius: var(--radius-sm);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.profileButton:hover {
+  background: var(--color-bg-soft);
+  color: var(--color-accent);
+}
+
+.profileButton:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
 .avatar,
 .avatarFallback {
   flex: 0 0 40px;

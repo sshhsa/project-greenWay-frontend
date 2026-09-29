@@ -14,9 +14,10 @@ type Props = {
   user: User | null;
   onClose: () => void;
   onLogout: () => void;
+  onEditProfile: () => void;
 };
 
-export default function MobileMenu({ id, isAuthenticated, user, onClose, onLogout }: Props) {
+export default function MobileMenu({ id, isAuthenticated, user, onClose, onLogout, onEditProfile }: Props) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -62,7 +63,7 @@ export default function MobileMenu({ id, isAuthenticated, user, onClose, onLogou
 
       <div className={css.actions}>
         {isAuthenticated && user ? (
-          <UserBar user={user} onLogout={onLogout} />
+          <UserBar user={user} onLogout={onLogout} onEditProfile={onEditProfile} />
         ) : (
           <>
             <Link className={css.loginLink} href="/sign-in" onClick={onClose}>Вхід</Link>

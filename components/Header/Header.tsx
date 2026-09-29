@@ -6,6 +6,7 @@ import Link from 'next/link';
 import MobileMenu from '@/components/MobileMenu/MobileMenu';
 import UserBar from '@/components/UserBar/UserBar';
 import ConfirmLogoutModal from '@/components/ConfirmLogoutModal/ConfirmLogoutModal';
+import EditProfileModal from '@/components/EditProfileModal/EditProfileModal';
 import { useAuthStore } from '@/lib/store/authStore';
 
 import css from './Header.module.css';
@@ -15,6 +16,7 @@ export default function Header() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const closeMenu = useCallback(() => {
@@ -27,6 +29,11 @@ export default function Header() {
   const openLogout = () => {
     setIsMenuOpen(false);
     setIsLogoutOpen(true);
+  };
+
+  const openEditProfile = () => {
+    setIsMenuOpen(false);
+    setIsEditProfileOpen(true);
   };
 
   return (
@@ -50,7 +57,7 @@ export default function Header() {
 
           <div className={css.desktopActions}>
             {isAuthenticated && user ? (
-              <UserBar user={user} onLogout={openLogout} />
+              <UserBar user={user} onLogout={openLogout} onEditProfile={openEditProfile} />
             ) : (
               <>
                 <Link className={css.loginLink} href="/sign-in">Вхід</Link>
@@ -82,7 +89,12 @@ export default function Header() {
           user={user}
           onClose={closeMenu}
           onLogout={openLogout}
+          onEditProfile={openEditProfile}
         />
+      )}
+
+      {isEditProfileOpen && user && (
+        <EditProfileModal user={user} onClose={() => setIsEditProfileOpen(false)} />
       )}
 
       {isLogoutOpen && (
