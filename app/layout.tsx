@@ -28,7 +28,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="uk" className={montserrat.variable}>
+    <html lang="uk" className={montserrat.variable} suppressHydrationWarning>
       <body>
         <TanStackProvider>
           <AuthProvider>
