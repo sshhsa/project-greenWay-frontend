@@ -12,27 +12,47 @@ export default function Footer() {
     <footer className={css.footer}>
       <div className="container">
         <div className={css.footerContent}>
-          <Link className={css.logo} href="/" aria-label="Relax Map — головна">
+          <Link className={css.logo} href="/locations" aria-label="Relax Map — головна">
             Relax Map
           </Link>
           <ul className={css.socialList}>
             <li className={css.socialItem}>
-              <a className={css.socialLink} href="https://www.facebook.com/" target="_blank" rel="noreferrer">
+              <a
+                className={css.socialLink}
+                href="https://www.facebook.com/"
+                target="_blank"
+                rel="noreferrer"
+              >
                 F
               </a>
             </li>
             <li className={css.socialItem}>
-              <a className={css.socialLink} href="https://www.instagram.com/" target="_blank" rel="noreferrer">
+              <a
+                className={css.socialLink}
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noreferrer"
+              >
                 I
               </a>
             </li>
             <li className={css.socialItem}>
-              <a className={css.socialLink} href="https://twitter.com/" target="_blank" rel="noreferrer">
+              <a
+                className={css.socialLink}
+                href="https://twitter.com/"
+                target="_blank"
+                rel="noreferrer"
+              >
                 T
               </a>
             </li>
             <li className={css.socialItem}>
-              <a className={css.socialLink} href="https://www.youtube.com/" target="_blank" rel="noreferrer">
+              <a
+                className={css.socialLink}
+                href="https://www.youtube.com/"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Y
               </a>
             </li>
@@ -51,7 +71,9 @@ export default function Footer() {
           </ul>
         </div>
         <span className={css.divider} />
-      <p className={css.copyright}>© {currentYear} Природні Мандри. Усі права захищені.</p>
+        <p className={css.copyright}>
+          © {currentYear} Природні Мандри. Усі права захищені.
+        </p>
       </div>
     </footer>
   );
