@@ -1,3 +1,76 @@
-/* Власник: Олександр (TL) */
 .confirmLogoutModal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    text-align: center;
+}
+
+.title {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+}
+
+.text {
+    font-size: var(--fs-text-medium);
+    line-height: var(--lh-text);
+}
+
+.actions {
+    display: flex;
+    gap: var(--space-6);
+    width: 100%;
+    margin-top: var(--space-4);
+}
+
+.cancel,
+.confirm {
+    flex: 1;
+    padding: var(--space-2) var(--space-6);
+    font-size: var(--fs-text-medium);
+    font-weight: var(--fw-regular);
+    line-height: var(--lh-text);
+    border: var(--border-width) solid transparent;
+    border-radius: var(--radius-sm);
+    transition:
+        background-color var(--transition),
+        border-color var(--transition);
+}
+
+.cancel {
+    background-color: var(--color-neutral-lightest);
+    border-color: var(--color-border);
+}
+
+.cancel:hover:not(:disabled),
+.cancel:focus-visible {
+    border-color: var(--color-accent);
+}
+
+.confirm {
+    color: var(--color-white);
+    background-color: var(--color-accent);
+}
+
+.confirm:hover:not(:disabled),
+.confirm:focus-visible {
+    background-color: var(--color-accent-darker);
+}
+
+.cancel:disabled,
+.confirm:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (min-width: 768px) {
+    .actions {
+        justify-content: center;
+    }
+
+    .cancel,
+    .confirm {
+        flex: none;
+        min-width: 204px;
+    }
 }

@@ -1,3 +1,233 @@
-/* Власник: TBD */
 .header {
+  position: relative;
+  z-index: 20;
+  background: var(--color-bg);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 72px;
+}
+
+.logo {
+  display: inline-flex;
+  flex: 0 1 auto;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  font-size: var(--fs-text-regular);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-h6);
+  color: var(--color-text-brown);
+  cursor: pointer;
+}
+
+.logo::before {
+  content: '';
+  flex: 0 0 20px;
+  width: 20px;
+  height: 19px;
+  background: currentColor;
+  mask: url('./logo.svg') center / contain no-repeat;
+}
+
+.navLink,
+.loginLink,
+.shareLink,
+.registerLink {
+  cursor: pointer;
+}
+
+.desktopNav,
+.desktopActions {
+  display: none;
+}
+
+.menuButton {
+  display: grid;
+  flex: 0 0 44px;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.menuButton:hover {
+  background: var(--color-bg-soft);
+}
+
+.logo:hover,
+.navLink:hover,
+.loginLink:hover {
+  color: var(--color-accent);
+}
+
+.shareLink,
+.registerLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent);
+  color: var(--color-white);
+  font-weight: var(--fw-semibold);
+}
+
+.shareLink:hover,
+.registerLink:hover {
+  background: var(--color-accent-darker);
+}
+
+.logoutBackdrop {
+  position: fixed;
+  z-index: 40;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--page-padding);
+  background: var(--color-text-muted);
+}
+
+.logoutDialog {
+  position: relative;
+  width: min(100%, var(--max-width-large));
+  padding: var(--space-12) var(--space-6) var(--space-8);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-soft);
+}
+
+@media (min-width: 768px) {
+  .logoutDialog {
+    padding: var(--space-16);
+  }
+}
+
+.dialogClose {
+  position: absolute;
+  top: var(--space-5);
+  right: var(--space-5);
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  font-size: 28px;
+}
+
+.dialogClose:hover {
+  background: var(--color-bg-soft);
+}
+
+.logo:focus-visible,
+.navLink:focus-visible,
+.loginLink:focus-visible,
+.registerLink:focus-visible,
+.shareLink:focus-visible,
+.menuButton:focus-visible,
+.dialogClose:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (min-width: 768px) {
+  .header {
+    background: var(--color-bg-soft);
+    border-bottom: 0;
+  }
+
+  .inner {
+    min-height: 72px;
+  }
+
+  .desktopActions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    margin-left: auto;
+    color: var(--color-text-brown);
+  }
+
+  .loginLink,
+  .registerLink {
+    min-height: 38px;
+    padding: 4px 10px;
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    font-size: var(--fs-text-regular);
+    font-weight: var(--fw-regular);
+    line-height: var(--lh-text);
+  }
+
+  .loginLink {
+    background: var(--color-overlay-5);
+  }
+
+  .registerLink {
+    border-color: var(--color-accent);
+  }
+
+  .menuButton {
+    flex-basis: 32px;
+    width: 32px;
+    height: 32px;
+    background: var(--color-overlay-5);
+  }
+}
+
+@media (min-width: 1440px) {
+  .inner {
+    gap: 32px;
+    min-height: 72px;
+  }
+
+  .logo {
+    font-size: 17px;
+    font-weight: var(--fw-medium);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    color: var(--color-text-brown);
+  }
+
+  .logo:hover {
+    color: var(--color-text-brown);
+    background: var(--color-overlay-5);
+  }
+
+  .desktopNav,
+  .desktopActions {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    color: var(--color-text-brown);
+  }
+
+  .desktopNav {
+    margin-left: auto;
+  }
+
+  .desktopActions {
+    flex: 0 0 auto;
+    margin-left: 0;
+  }
+
+  .navLink {
+    white-space: nowrap;
+    font-size: var(--fs-text-regular);
+    font-weight: var(--fw-regular);
+    line-height: var(--lh-text);
+  }
+
+  .menuButton {
+    display: none;
+  }
 }

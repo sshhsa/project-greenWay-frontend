@@ -1,9 +1,29 @@
-// Власник: Олександр (TL)
-// Таби «Реєстрація / Вхід» з акцентом активної сторінки
-// TODO: верстка за макетом у 3 брейкпоінтах; 'use client' додай, якщо потрібні хуки/події
+'use client';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import css from './AuthNav.module.css';
 
+const TABS = [
+  { href: '/sign-up', label: 'Реєстрація' },
+  { href: '/sign-in', label: 'Вхід' },
+];
+
 export default function AuthNav() {
-  return <div className={css.authNav}>AuthNav — TODO (Олександр (TL))</div>;
+  const pathname = usePathname();
+
+  return (
+    <nav className={css.authNav} aria-label="Авторизація">
+      {TABS.map(({ href, label }) => (
+        <Link
+          key={href}
+          href={href}
+          className={`${css.tab} ${pathname === href ? css.active : ''}`}
+          aria-current={pathname === href ? 'page' : undefined}
+        >
+          {label}
+        </Link>
+      ))}
+    </nav>
+  );
 }

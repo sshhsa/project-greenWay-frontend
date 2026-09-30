@@ -34,14 +34,14 @@
   --lh-h4: 1.3;
   --lh-h6: 1.4;
   --lh-text: 1.5;
-  --ls-heading: -1px;
+  --ls-heading: -0.01em;
 
   /* mobile (375) */
   --fs-h1: 32px;
   --fs-h2: 28px;
-  --fs-h3: 28px; /* TODO: звірити з макетом */
-  --fs-h4: 24px; /* TODO: звірити з макетом */
-  --fs-h5: 20px; /* TODO: звірити з макетом */
+  --fs-h3: 26px;
+  --fs-h4: 24px;
+  --fs-h5: 20px;
   --fs-h6: 18px;
   --fs-text-large: 18px;
   --fs-text-medium: 16px;
@@ -53,10 +53,32 @@
   --page-padding: 20px;
   --section-padding-large: 64px;
   --section-padding-medium: 48px;
-  --section-padding-small: 48px;
-  --container-max: 1440px;
-  --max-width-large: 768px;
+  --section-padding-small: 32px;
+  --container-small: 768px;
+  --container-medium: 1024px;
+  --container-large: 1280px;
+  --container-max: calc(var(--container-large) + var(--page-padding) + var(--page-padding));
+  --max-width-xxsmall: 320px;
   --max-width-xsmall: 400px;
+  --max-width-small: 480px;
+  --max-width-medium: 560px;
+  --max-width-large: 768px;
+  --max-width-xlarge: 1024px;
+  --max-width-xxlarge: 1280px;
+
+  /* ===== spacing ===== */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
 
   /* ===== radius / borders ===== */
   --radius-sm: 6px;
@@ -73,9 +95,9 @@
   :root {
     --fs-h1: 48px;
     --fs-h2: 44px;
-    --fs-h3: 40px; /* TODO */
-    --fs-h4: 32px; /* TODO */
-    --fs-h5: 24px; /* TODO */
+    --fs-h3: 32px;
+    --fs-h4: 24px;
+    --fs-h5: 20px;
     --fs-h6: 18px;
     --fs-text-large: 18px;
     --fs-text-medium: 16px;
@@ -94,7 +116,7 @@
   :root {
     --fs-h1: 56px;
     --fs-h2: 52px;
-    --fs-h3: 44px; /* TODO */
+    --fs-h3: 48px;
     --fs-h4: 40px;
     --fs-h5: 32px;
     --fs-h6: 26px;
@@ -108,5 +130,6 @@
     --section-padding-large: 72px;
     --section-padding-medium: 80px;
     --section-padding-small: 48px;
+    --container-large: 1312px;
   }
 }

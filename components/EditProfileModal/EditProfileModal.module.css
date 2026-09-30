@@ -1,0 +1,255 @@
+/* Власник: Маркіян. Макет: «Редагування профілю» (mobile 334 · tablet 704 · desktop 768) */
+.backdrop {
+  position: fixed;
+  z-index: 50;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+  padding: var(--space-5) var(--page-padding);
+  background: var(--color-text-muted);
+}
+
+.modal {
+  /* розміри з макета, для яких немає токенів у variables.css */
+  --avatar-size: 117px;
+  --upload-button-height: 35px;
+  --actions-width: 430px;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  width: 100%;
+  max-width: var(--max-width-large);
+  padding: var(--space-16) var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-soft);
+}
+
+.closeButton {
+  position: absolute;
+  top: var(--space-5);
+  right: var(--space-5);
+  display: grid;
+  place-items: center;
+  width: var(--space-8);
+  height: var(--space-8);
+  border-radius: var(--radius-sm);
+  color: var(--color-black);
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+}
+
+.closeButton:hover:not(:disabled) {
+  background: var(--color-accent-lighter);
+  color: var(--color-accent);
+}
+
+.title {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h2);
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.label {
+  font-size: var(--fs-text-regular);
+  line-height: var(--lh-text);
+}
+
+.upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.avatar {
+  flex: 0 0 var(--avatar-size);
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatarFallback {
+  display: grid;
+  place-items: center;
+  background: var(--color-accent-lighter);
+  color: var(--color-text-brown);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+}
+
+.uploadButton,
+.cancelButton,
+.submitButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-text-medium);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-text);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    color var(--transition);
+}
+
+.uploadButton,
+.cancelButton {
+  background: var(--color-overlay-5);
+  color: var(--color-text-brown);
+}
+
+.uploadButton {
+  min-height: var(--upload-button-height);
+}
+
+.uploadButton:hover,
+.cancelButton:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  background: var(--color-accent-lighter);
+}
+
+.fileInput:focus-visible + .uploadButton,
+.closeButton:focus-visible,
+.cancelButton:focus-visible,
+.submitButton:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.fileInput:disabled + .uploadButton {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.input {
+  width: 100%;
+  padding: var(--space-2);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-lighter);
+  color: var(--color-text);
+  font-size: var(--fs-text-regular);
+  line-height: var(--lh-text);
+  transition: border-color var(--transition);
+}
+
+.input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.input:hover {
+  border-color: var(--color-accent-light);
+}
+
+.input:focus {
+  border-color: var(--color-accent);
+  outline: none;
+}
+
+.inputError,
+.inputError:hover,
+.inputError:focus {
+  border-color: var(--color-error);
+}
+
+.error {
+  color: var(--color-error);
+  font-size: var(--fs-text-small);
+  line-height: var(--lh-text);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.cancelButton,
+.submitButton {
+  width: 100%;
+  min-height: var(--space-12);
+}
+
+.submitButton {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-white);
+}
+
+.submitButton:hover:not(:disabled) {
+  border-color: var(--color-accent-darker);
+  background: var(--color-accent-darker);
+}
+
+.cancelButton:disabled,
+.submitButton:disabled,
+.closeButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: var(--space-4);
+  height: var(--space-4);
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 768px) {
+  .backdrop {
+    padding: var(--space-10) var(--page-padding);
+  }
+
+  .modal {
+    padding: var(--space-16);
+  }
+
+  .upload {
+    flex-direction: row;
+  }
+
+  .actions {
+    flex-direction: row;
+    gap: var(--space-6);
+    width: 100%;
+    max-width: var(--actions-width);
+    margin: 0 auto;
+  }
+
+  .cancelButton,
+  .submitButton {
+    flex: 1 1 0;
+    width: auto;
+  }
+}

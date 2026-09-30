@@ -1,3 +1,74 @@
-/* Власник: TBD */
 .userBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.profileButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-1);
+  border-radius: var(--radius-sm);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.profileButton:hover {
+  background: var(--color-bg-soft);
+  color: var(--color-accent);
+}
+
+.profileButton:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.avatar,
+.avatarFallback {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatarFallback {
+  display: grid;
+  place-items: center;
+  background: var(--color-accent-lighter);
+  color: var(--color-text-brown);
+  font-weight: var(--fw-semibold);
+}
+
+.name {
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--fs-text-small);
+  font-weight: var(--fw-semibold);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logoutButton {
+  display: grid;
+  flex: 0 0 40px;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  background: var(--color-bg-soft);
+  color: var(--color-accent);
+}
+
+.logoutButton:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }

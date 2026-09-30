@@ -1,0 +1,5 @@
+.wrapper {
+    min-height: 70vh;
+    padding-block: var(--section-padding-large);
+    background-color: var(--color-bg-soft);
+}
