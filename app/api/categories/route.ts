@@ -2,8 +2,8 @@
 // Підказка: використай proxyToBackend(req, шлях_на_бекенді) з lib/api/proxy.ts (приклад — app/api/auth/login/route.ts)
 import { NextRequest } from 'next/server';
 
-import { notImplemented } from '@/lib/api/proxy';
+import { proxyToBackend } from '@/lib/api/proxy';
 
-export async function GET(_req: NextRequest) {
-  return notImplemented('GET /api/categories');
+export async function GET(req: NextRequest) {
+  return proxyToBackend(req, '/categories');
 }

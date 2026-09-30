@@ -1,3 +1,71 @@
-/* Власник: TBD */
 .locationsGrid {
+  padding-bottom: var(--section-padding-small);
+  overflow-anchor: none;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--radius-lg);
+}
+
+.status {
+  display: grid;
+  justify-items: center;
+  gap: var(--page-padding);
+  padding-block: var(--section-padding-large);
+  text-align: center;
+}
+
+.moreWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-8);
+}
+
+.moreButton,
+.retryButton {
+  padding: var(--radius-sm) var(--radius-lg);
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: var(--color-white);
+  font-weight: var(--fw-semibold);
+  transition: background-color var(--transition);
+}
+
+.moreButton:hover:not(:disabled),
+.retryButton:hover {
+  background: var(--color-accent-darker);
+}
+
+.moreButton:disabled {
+  cursor: wait;
+}
+
+.error {
+  margin-top: var(--page-padding);
+  color: var(--color-error);
+  text-align: center;
+}
+
+.updating {
+  position: fixed;
+  inset-inline-end: var(--page-padding);
+  inset-block-end: var(--page-padding);
+  padding: var(--page-padding);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-soft);
+  box-shadow: 0 0 var(--radius-md) var(--color-overlay-5);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1440px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
