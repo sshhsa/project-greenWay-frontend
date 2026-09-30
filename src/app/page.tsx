@@ -6,6 +6,10 @@ import AddReviewModal from "@/components/Modal/AddReviewModal/AddReviewModal";
 import AuthPromptModal from "@/components/Modal/AuthPromptModal/AuthPromptModal";
 import ConfirmationModal from "@/components/Modal/ConfirmationModal/ConfirmationModal";
 
+import ButtonTest from "@/components/UI/Button/ButtonTest";
+
+import InputTest from "@/components/UI/Input/InputTest";
+
 export default function Home() {
   const [activeModal, setActiveModal] = useState<
     "review" | "confirmation" | "auth" | null
@@ -13,6 +17,8 @@ export default function Home() {
 
   return (
     <main>
+      <ButtonTest />
+      <InputTest />
       <button
         type="button"
         onClick={() => setActiveModal("review")}

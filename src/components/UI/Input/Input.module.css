@@ -1,0 +1,259 @@
+.inputs {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 40px;
+  width: 1312px;
+  height: 1602px;
+}
+
+.heading {
+  width: 1312px;
+  height: 52px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 130%;
+  letter-spacing: -0.01em;
+  color: #4c2613;
+}
+
+.textInput {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 24px;
+  width: 1312px;
+  height: 258px;
+}
+
+.textArea {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 24px;
+  width: 1312px;
+  height: 596px;
+}
+
+.textArea h3 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 130%;
+  letter-spacing: -0.01em;
+  color: #4c2613;
+}
+
+.textAreaContent {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 96px;
+  border: 1px dashed #9747ff;
+  border-radius: 5px;
+  padding: 24px;
+  width: 1312px;
+  height: 530px;
+}
+
+.textAreaField {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 0;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  padding: 12px;
+  width: 560px;
+  height: 180px;
+  background: #ffe5d9;
+
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.textAreaFilled {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 0;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  padding: 12px;
+  width: 560px;
+  height: 180px;
+  background: #ffe5d9;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+  color: #4c2613;
+}
+
+.textAreaFocused {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 0;
+  border: 1px solid #cc6534;
+  border-radius: 6px;
+  padding: 12px;
+  width: 560px;
+  height: 180px;
+  background: #ffe5d9;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+  color: #4c2613;
+}
+.textAreaError {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: 6px;
+  width: 560px;
+  height: 206px;
+  background: rgba(255, 255, 255, 0);
+}
+
+.textAreaErrorField {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 0;
+  border: 1px solid #b00101;
+  border-radius: 6px;
+  padding: 12px;
+  width: 560px;
+  height: 180px;
+  background: #ffe5d9;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+  color: #b00101;
+}
+
+.textAreaErrorMessage {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 150%;
+  color: #b00101;
+}
+
+.textInput h3 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 130%;
+  letter-spacing: -0.01em;
+  color: #4c2613;
+}
+
+.textInputContent {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 96px;
+  border: 1px dashed #9747ff;
+  border-radius: 5px;
+  padding: 24px;
+  width: 1312px;
+  height: 192px;
+}
+
+.input {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+  color: #b00101;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 8px;
+
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  padding: 8px;
+  width: 560px;
+  height: 43px;
+  background: #ffe5d9;
+}
+
+.defaultBorder {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.focusBorder {
+  border: 1px solid #cc6534;
+}
+
+.errorBorder {
+  border: 1px solid #b00101;
+}
+
+.placeholder {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.filled {
+  color: #4c2613;
+}
+
+.input:focus {
+  border: 1px solid #cc6534;
+  outline: none;
+  color: #4c2613;
+  caret-color: #4c2613;
+}
+
+.error {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: 6px;
+  width: 560px;
+  height: 69px;
+  background: rgba(255, 255, 255, 0);
+}
+
+.errorValue {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+  color: #b00101;
+}
+
+.errorMessage {
+  width: 560px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 150%;
+  color: #b00101;
+}
