@@ -1,9 +1,8 @@
 import { NextRequest } from 'next/server';
+import { notImplemented, proxyToBackend } from '@/lib/api/proxy';
 
-import { notImplemented } from '@/lib/api/proxy';
-
-export async function GET(_req: NextRequest) {
-  return notImplemented('GET /api/feedbacks');
+export async function GET(req: NextRequest) {
+  return proxyToBackend(req, '/feedbacks');
 }
 
 export async function POST(_req: NextRequest) {

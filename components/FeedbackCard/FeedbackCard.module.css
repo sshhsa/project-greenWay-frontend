@@ -1,3 +1,78 @@
-/* Власник: TBD */
-.feedbackCard {
+.card {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 203px;
+  height: 100%;
+  padding: var(--space-4);
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--color-accent-lighter);
+  border-radius: var(--radius-lg);
+
+  color: var(--color-text-brown);
+}
+
+.description {
+  margin: var(--space-4) 0 0;
+
+  font-family: var(--font-family);
+  font-size: var(--fs-text-regular);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-text);
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+
+  min-height: calc(3em * var(--lh-text));
+}
+
+.author {
+  margin-top: auto;
+  padding-top: var(--space-4);
+}
+
+.userName {
+  margin: 0 0 var(--space-1);
+
+  font-family: var(--font-family);
+  font-size: var(--fs-text-regular);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-h6);
+}
+
+.locationName {
+  margin: 0;
+
+  font-family: var(--font-family);
+  font-size: var(--fs-text-small);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-h6);
+
+  text-decoration: underline;
+}
+
+.locationNameHidden {
+  visibility: hidden;
+}
+
+@media (min-width: 768px) and (max-width: 1439px) {
+  .card {
+    height: 203px;
+    min-height: 203px;
+
+    border-radius: var(--radius-md);
+  }
+}
+
+@media (min-width: 1440px) {
+  .card {
+    height: 227px;
+    min-height: 227px;
+
+    border-radius: var(--radius-md);
+  }
 }
