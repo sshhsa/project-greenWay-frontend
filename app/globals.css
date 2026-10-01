@@ -1,4 +1,3 @@
-/* Власник: Олександр (TL). Базові стилі. Змінні — у variables.css */
 @import './variables.css';
 
 *,
@@ -8,6 +7,9 @@
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
   margin: 0;
   font-family: var(--font-family);
   font-weight: var(--fw-regular);
@@ -15,6 +17,10 @@ body {
   line-height: var(--lh-text);
   color: var(--color-text);
   background-color: var(--color-bg);
+}
+
+main {
+  flex: 1;
 }
 
 h1,
@@ -40,26 +46,32 @@ h6 {
   font-weight: var(--fw-bold);
   letter-spacing: var(--ls-heading);
 }
+
 h1 {
   font-size: var(--fs-h1);
   line-height: var(--lh-h1);
 }
+
 h2 {
   font-size: var(--fs-h2);
   line-height: var(--lh-h2);
 }
+
 h3 {
   font-size: var(--fs-h3);
   line-height: var(--lh-h2);
 }
+
 h4 {
   font-size: var(--fs-h4);
   line-height: var(--lh-h4);
 }
+
 h5 {
   font-size: var(--fs-h5);
   line-height: var(--lh-h4);
 }
+
 h6 {
   font-size: var(--fs-h6);
   line-height: var(--lh-h6);
