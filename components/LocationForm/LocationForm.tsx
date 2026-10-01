@@ -1,11 +1,11 @@
 // Форма локації (фото з прев'ю, назва, тип, регіон, опис). Лише для створення
 "use client";
 
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ChangeEvent } from "react";
 import { useFormik } from "formik";
+import Image from "next/image";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 import type { ButtonHTMLAttributes, HTMLAttributes } from "react";
@@ -34,8 +34,8 @@ function LocationInputWithMap({
         setLocation(event.target.value);
         onCoordinatesChange(initialCoordinates ?? null);
       }}
-      placeholder="Введіть адресу місця"
-      aria-label="Адреса місця"
+      placeholder="Введіть назву місця"
+      aria-label="Назва місця"
       className={css.input}
     />
   );
@@ -181,7 +181,7 @@ export function LocationForm({
           .trim()
           .min(3, "Назва має містити щонайменше 3 символи")
           .max(96, "Назва має містити не більше 96 символів")
-          .required("Вкажіть назву місця"),
+          .required("Введіть назву місця"),
         locationType: Yup.string()
           .max(64, "Тип місця має містити не більше 64 символів")
           .oneOf(
@@ -196,7 +196,7 @@ export function LocationForm({
             "Оберіть регіон зі списку",
           )
           .required("Оберіть регіон"),
-        address: Yup.string().trim().required("Вкажіть адресу місця"),
+        address: Yup.string().trim().required("Вкажіть назву місця"),
         coordinates: Yup.object()
           .shape({
             lat: Yup.number().required(),
@@ -208,7 +208,7 @@ export function LocationForm({
           .trim()
           .min(20, "Опис має містити щонайменше 20 символів")
           .max(6000, "Опис має містити не більше 6000 символів")
-          .required("Додайте детальний опис"),
+          .required("Детальний опис локації"),
         image: Yup.mixed<File>()
           .nullable()
           .test("imageRequired", "Додайте фото локації", (file) => file instanceof File)
@@ -310,8 +310,7 @@ export function LocationForm({
     if (!isCategoriesLoading && !categoriesError) {
       void validateForm();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoriesError, isCategoriesLoading]);
+  }, [categoriesError, isCategoriesLoading, validateForm]);
 
   useEffect(() => {
     return () => {
@@ -377,7 +376,7 @@ export function LocationForm({
 
   return (
     <form
-      className={css.form}
+      className={css.locationForm}
       onSubmit={formik.handleSubmit}
       noValidate
       aria-busy={isCategoriesLoading || formik.isSubmitting}
@@ -518,7 +517,7 @@ export function LocationForm({
         </div>
 
         <div className={css.fieldGroup}>
-          <label className={css.label}>Адреса та розташування на карті</label>
+          <label className={css.label}>Назва та розташування на карті</label>
           <LocationInputWithMap
             location={formik.values.address || ""}
             setLocation={(value) => {
@@ -595,3 +594,5 @@ export function LocationForm({
     </form>
   );
 }
+
+

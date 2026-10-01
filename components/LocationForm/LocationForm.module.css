@@ -1,10 +1,10 @@
-.form {
+.locationForm {
   position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 335px;
-  gap: 20px;
+  max-width: 375px;
+  gap: 24px;
 }
 
 .fieldGroup {
@@ -26,7 +26,7 @@
   line-height: 1.33;
   font-weight: 400;
   pointer-events: none;
-  color: var(--color-coral-darkest);
+  color: #2b1712;
 }
 
 .imagePreview {
@@ -38,11 +38,13 @@
   height: 223px;
   overflow: hidden;
   border-radius: 12px;
-  background: var(--color-neutral-lighter);
+  background: #e2dedc;
 }
 
 .previewImage {
   object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .fileInput {
@@ -62,7 +64,7 @@
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 6px;
   background: rgba(0, 0, 0, 0.05);
-  color: var(--color-coral-darkest);
+  color: #2b1712;
   font-weight: 500;
   font-size: 16px;
   line-height: 1.33;
@@ -75,25 +77,25 @@
 .uploadButton:hover,
 .uploadButton:focus-visible {
   cursor: pointer;
-  border-color: var(--color-coral-dark);
-  background: var(--color-coral-dark);
-  color: var(--color-white);
+  border-color: #8c4a38;
+  background: #8c4a38;
+  color: #ffffff;
 }
 
 .uploadButton:active {
   border-color: transparent;
-  background: var(--color-green);
-  color: var(--color-white);
+  background: #4a7c59;
+  color: #ffffff;
 }
 
 .input {
   width: 100%;
   min-height: 40px;
-  padding: 8px;
-  border: 1px solid var(--color-neutral-lighter);
+  padding: 8px 36px 8px 8px;
+  border: 1px solid #e2dedc;
   border-radius: 6px;
-  background: var(--color-coral-lighter);
-  color: var(--color-coral-darkest);
+  background: #fdf0ed;
+  color: #2b1712;
   font: inherit;
   font-size: 16px;
   line-height: 1.33;
@@ -103,7 +105,7 @@
 .input,
 .textarea {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-coral-dark) var(--color-coral-lighter);
+  scrollbar-color: #8c4a38 #fdf0ed;
 }
 
 .input::-webkit-scrollbar,
@@ -114,13 +116,13 @@
 
 .input::-webkit-scrollbar-track,
 .textarea::-webkit-scrollbar-track {
-  background: var(--color-coral-lighter);
+  background: #fdf0ed;
 }
 
 .input::-webkit-scrollbar-thumb,
 .textarea::-webkit-scrollbar-thumb {
   border-radius: 999px;
-  background: var(--color-coral-dark);
+  background: #8c4a38;
 }
 
 .input::-webkit-scrollbar-button,
@@ -131,20 +133,19 @@
 }
 
 .input::placeholder {
-  color: var(--color-neutral);
+  color: #9c938f;
 }
 
 .input:hover,
 .input:focus {
-  border-color: var(--color-coral-dark);
+  border-color: #8c4a38;
   outline: none;
 }
 
 .inputError,
 .inputError:hover,
 .inputError:focus {
-  border-color: var(--color-red);
-  color: var(--color-red);
+  border-color: #d93838;
 }
 
 select.input {
@@ -164,31 +165,31 @@ select.input::-ms-expand {
 
 .selectArrow {
   position: absolute;
-  right: 8px;
+  right: 12px;
   top: 50%;
   width: 12px;
   height: 7px;
   pointer-events: none;
-  fill: var(--color-coral-darkest);
-  transform: translateY(-50%) rotate(180deg);
+  fill: #2b1712;
+  transform: translateY(-50%);
 }
 
 select.input.placeholderSelect {
-  color: var(--color-neutral);
+  color: #9c938f;
 }
 
 select.input option {
-  color: var(--color-coral-darkest);
+  color: #2b1712;
 }
 
 select.input.selectError,
 select.input.selectError:hover,
 select.input.selectError:focus {
-  border-color: var(--color-red);
+  border-color: #d93838;
 }
 
 select.input option:checked {
-  background: var(--color-coral-light);
+  background: #f4dcd6; 
 }
 
 .textarea {
@@ -200,21 +201,21 @@ select.input option:checked {
 
 .statusMessage {
   width: 100%;
-  color: var(--color-red);
+  color: #d93838;
   font-size: 12px;
   line-height: 1.4;
 }
 
 .error {
   margin-top: 6px;
-  color: var(--color-red);
+  color: #d93838;
   font-size: 11px;
   line-height: 1.3;
 }
 
 .actions {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   width: 100%;
   gap: 12px;
   margin-top: 12px;
@@ -224,6 +225,12 @@ select.input option:checked {
   width: 100%;
   min-height: 48px;
   padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.actionButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .buttonLoaderContent {
@@ -234,7 +241,7 @@ select.input option:checked {
 }
 
 @media (min-width: 768px) {
-  .form {
+  .locationForm {
     max-width: 704px;
     gap: 24px;
   }
@@ -256,7 +263,7 @@ select.input option:checked {
 }
 
 @media (min-width: 1440px) {
-  .form {
+  .locationForm {
     max-width: 1091px;
   }
 
