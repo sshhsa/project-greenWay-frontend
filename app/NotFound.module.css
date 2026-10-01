@@ -1,0 +1,118 @@
+/* Власник: Маркіян. Сторінка 404 у стилі плейсхолдерів профілю (bg-soft + картка accent-lighter) */
+.section {
+  display: grid;
+  min-height: 70vh;
+  padding: var(--section-padding-medium) 0;
+  background: var(--color-bg-soft);
+}
+
+.inner {
+  display: grid;
+  place-items: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: var(--max-width-medium);
+  padding: var(--space-10) var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--color-accent-lighter);
+  text-align: center;
+}
+
+.code {
+  font-size: calc(var(--fs-h1) * 2);
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  letter-spacing: var(--ls-heading);
+  color: var(--color-accent);
+}
+
+.title {
+  font-size: var(--fs-h4);
+  line-height: var(--lh-h4);
+  color: var(--color-text);
+}
+
+.text {
+  max-width: var(--max-width-small);
+  font-size: var(--fs-text-regular);
+  line-height: var(--lh-text);
+  color: var(--color-text-muted);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  margin-top: var(--space-2);
+}
+
+.primaryLink,
+.secondaryLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--space-12);
+  padding: var(--space-2) var(--space-6);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-text-medium);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-text);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    color var(--transition);
+}
+
+.primaryLink {
+  background: var(--color-accent);
+  color: var(--color-white);
+}
+
+.primaryLink:hover {
+  background: var(--color-accent-darker);
+}
+
+.secondaryLink {
+  border-color: var(--color-border);
+  background: var(--color-overlay-5);
+  color: var(--color-text-brown);
+}
+
+.secondaryLink:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.primaryLink:focus-visible,
+.secondaryLink:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: var(--space-12) var(--space-16);
+  }
+
+  .actions {
+    flex-direction: row;
+    justify-content: center;
+    width: auto;
+  }
+}
+
+@media (min-width: 1440px) {
+  .section {
+    padding: var(--section-padding-large) 0;
+  }
+}
