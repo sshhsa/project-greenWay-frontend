@@ -19,5 +19,5 @@ export type LocationsQuery = {
   region?: string;
   type?: string;
   search?: string;
-  sort?: 'name' | '-name';
+  sort?: 'name' | '-name' | 'rating' | '-rating';
 };

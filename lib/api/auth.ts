@@ -1,5 +1,5 @@
-// Власник: Олександр (TL)
 import { nextServer } from './client';
+import { isAxiosError } from 'axios';
 import type { SingleResponse } from '@/types/api';
 import type { LoginRequest, RegisterRequest, User } from '@/types/user';
 
@@ -14,10 +14,17 @@ export const login = async (body: LoginRequest) => {
 };
 
 export const logout = async () => {
-  await nextServer.post('/auth/logout');
+  try {
+    await nextServer.post('/auth/logout');
+  } catch (error) {
+    if (isAxiosError(error) && error.response?.status === 401) {
+      await nextServer.post('auth/refresh');
+      await nextServer.post('auth/logout');
+    }
+    throw error;
+  }
 };
 
-// Відновлення сесії після перезавантаження (AuthProvider). Працює, коли готовий GET /users/me.
 export const getMe = async () => {
   const { data } = await nextServer.get<SingleResponse<User>>('/users/me');
   return data.data;

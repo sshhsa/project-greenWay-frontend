@@ -21,7 +21,6 @@ export const metadata: Metadata = {
   title: 'Природні Мандри',
   description:
     'Перевірені місця для відпочинку в Україні з фото та відгуками мандрівників',
-  // TODO(Олександр): openGraph після першого деплою на Vercel
 };
 
 export default function RootLayout({
@@ -35,7 +34,35 @@ export default function RootLayout({
             <Header />
             <main>{children}</main>
             <Footer />
-            <Toaster position="top-right" />
+            <Toaster
+              position="top-center"
+              toastOptions={{
+                duration: 3000,
+                style: {
+                  minWidth: '280px',
+                  padding: '14px 16px',
+                  borderRadius: 'var(--radius-sm)',
+                  fontFamily: 'var(--font-family)',
+                  fontSize: 'var(--fs-text-small)',
+                  color: 'var(--color-white)',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                },
+                success: {
+                  style: { background: 'var(--color-success)' },
+                  iconTheme: {
+                    primary: 'var(--color-white)',
+                    secondary: 'var(--color-success)',
+                  },
+                },
+                error: {
+                  style: { background: 'var(--color-error)' },
+                  iconTheme: {
+                    primary: 'var(--color-white)',
+                    secondary: 'var(--color-error)',
+                  },
+                },
+              }}
+            />
           </AuthProvider>
         </TanStackProvider>
       </body>

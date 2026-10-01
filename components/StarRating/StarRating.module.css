@@ -1,3 +1,31 @@
-/* Власник: TBD */
 .starRating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.starRating button {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-black);
+  font: inherit;
+  font-size: var(--fs-text-large);
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color var(--transition),
+    transform var(--transition);
+}
+
+.starRating button:hover {
+  color: var(--color-accent);
+}
+
+.starRating button:focus-visible {
+  outline: var(--border-width) solid var(--color-accent);
+  outline-offset: var(--space-1);
+  border-radius: var(--radius-sm);
 }
