@@ -1,0 +1,18 @@
+.locationsPage {
+  padding-top: var(--space-8);
+}
+
+.title {
+  margin-bottom: var(--space-8);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .locationsPage {
+    padding-top: var(--space-16);
+  }
+
+  .title {
+    margin-bottom: var(--space-12);
+  }
+}

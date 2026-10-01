@@ -1,6 +1,3 @@
-// Власник: TBD (див. docs/FRONTEND_TASKS.md)
-// Функція запиту з браузера до нашого Route Handler (див. lib/api/auth.ts як приклад).
-// POST /api/feedbacks { locationId, rate, description } → Feedback
 import type { Feedback } from '@/types/feedback';
 
 export type CreateFeedbackRequest = {

@@ -1,3 +1,98 @@
-/* Власник: TBD */
+/* Власник: Христина */
 .locationDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--section-padding-small) var(--page-padding) 0 var(--page-padding);
+  font-family: var(--font-family);
+  color: var(--color-text);
+  background-color: var(--color-bg-soft);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8); /*===має бути 33px===*/
+}
+
+.image {
+  border-radius: var(--radius-lg);
+  width: 100%;
+  height: auto;
+aspect-ratio: 335 / 224;
+  object-fit: cover;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.rate {
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-2); /*=== уточнити чи потрібні стилі для рейтинга  ===*/
+}
+
+.title {
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-h1);
+  letter-spacing: var(--ls-heading);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: var(--fs-text-small);
+}
+
+.label {
+  font-weight: var(--fw-bold);
+}
+
+.item {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.description {
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-text-regular);
+  line-height: var(--lh-text);
+}
+.link{
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+}
+
+@media (min-width: 768px) {
+  .locationDetails {
+    padding: var(--section-padding-small);
+    padding-bottom: 0;
+  }
+
+  .container {
+    gap: var(--space-6);
+  }
+}
+
+@media (min-width: 1440px) {
+  .locationDetails {
+    padding: var(--section-padding-small) var(--page-padding) 0 var(--page-padding);
+    gap: var(--section-padding-small);
+  }
+
+  .container {
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .description {
+    max-width: 865px;
+    margin: 0 auto;
+  }
 }

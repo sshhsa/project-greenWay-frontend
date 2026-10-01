@@ -1,7 +1,3 @@
-// Власник: TBD (див. docs/FRONTEND_TASKS.md)
-// Лого, соцмережі (нова вкладка), навігація, © з динамічним роком
-// TODO: верстка за макетом у 3 брейкпоінтах; 'use client' додай, якщо потрібні хуки/події
-
 import Link from 'next/link';
 import css from './Footer.module.css';
 
@@ -12,9 +8,14 @@ export default function Footer() {
     <footer className={css.footer}>
       <div className="container">
         <div className={css.footerContent}>
-          <Link className={css.logo} href="/locations" aria-label="Relax Map — головна">
-            Relax Map
-          </Link>
+          <div className={css.logoWrapper}>
+            <Link className={css.logo} href="/" aria-label="Relax Map — головна">
+              <svg className={css.logoIcon} aria-hidden="true" width={24} height={24}>
+                <use href="/sprite.svg#icon-map" />
+              </svg>
+              Relax Map
+            </Link>
+          </div>
           <ul className={css.socialList}>
             <li className={css.socialItem}>
               <a
@@ -22,8 +23,11 @@ export default function Footer() {
                 href="https://www.facebook.com/"
                 target="_blank"
                 rel="noreferrer"
+                aria-label="Facebook"
               >
-                F
+                <svg className={css.socialIcon} aria-hidden="true" width={24} height={24}>
+                  <use href="/sprite.svg#icon-facebook" />
+                </svg>
               </a>
             </li>
             <li className={css.socialItem}>
@@ -32,8 +36,11 @@ export default function Footer() {
                 href="https://www.instagram.com/"
                 target="_blank"
                 rel="noreferrer"
+                aria-label="Instagram"
               >
-                I
+                <svg className={css.socialIcon} aria-hidden="true" width={24} height={24}>
+                  <use href="/sprite.svg#icon-instagram" />
+                </svg>
               </a>
             </li>
             <li className={css.socialItem}>
@@ -42,8 +49,11 @@ export default function Footer() {
                 href="https://twitter.com/"
                 target="_blank"
                 rel="noreferrer"
+                aria-label="X"
               >
-                T
+                <svg className={css.socialIcon} aria-hidden="true" width={24} height={24}>
+                  <use href="/sprite.svg#icon-x" />
+                </svg>
               </a>
             </li>
             <li className={css.socialItem}>
@@ -52,8 +62,11 @@ export default function Footer() {
                 href="https://www.youtube.com/"
                 target="_blank"
                 rel="noreferrer"
+                aria-label="Youtube"
               >
-                Y
+                <svg className={css.socialIcon} aria-hidden="true" width={24} height={24}>
+                  <use href="/sprite.svg#icon-youtube" />
+                </svg>
               </a>
             </li>
           </ul>
@@ -71,9 +84,7 @@ export default function Footer() {
           </ul>
         </div>
         <span className={css.divider} />
-        <p className={css.copyright}>
-          © {currentYear} Природні Мандри. Усі права захищені.
-        </p>
+        <p className={css.copyright}>© {currentYear} Природні Мандри. Усі права захищені.</p>
       </div>
     </footer>
   );

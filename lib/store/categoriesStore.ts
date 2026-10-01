@@ -1,5 +1,3 @@
-// Власник: TBD (див. docs/FRONTEND_TASKS.md)
-// Кеш регіонів і типів (рішення ментора): перший раз тягнемо з бекенду, далі — зі стору.
 import { create } from 'zustand';
 
 import type { Categories } from '@/types/category';

@@ -1,19 +1,20 @@
-/*
- * Власник: Олександр (TL). Токени з Figma (RelaxMap). Mobile-first: 375 → 768 → 1440.
- * У CSS Modules — тільки var(--...), жодних хардкод-кольорів і розмірів.
- */
 :root {
   /* ===== colors ===== */
   --color-black: #000000;
   --color-white: #ffffff;
-  --color-accent: #cc6534; /* coral dark — кнопки, акценти */
-  --color-accent-darker: #66321a; /* hover/active */
+  --color-accent: #cc6534;
+  /* coral dark — кнопки, акценти */
+  --color-accent-darker: #66321a;
+  /* hover/active */
   --color-accent-light: #ffa57a;
-  --color-accent-lighter: #ffe5d9; /* плашки */
+  --color-accent-lighter: #ffe5d9;
+  /* плашки */
   --color-bg: #ffffff;
-  --color-bg-soft: #fff2ec; /* фон секцій */
+  --color-bg-soft: #fff2ec;
+  /* фон секцій */
   --color-text: #000000;
-  --color-text-brown: #4c2613; /* текст на кораловому фоні */
+  --color-text-brown: #4c2613;
+  /* текст на кораловому фоні */
   --color-text-muted: rgba(0, 0, 0, 0.6);
   --color-neutral-dark: #4c4c4c;
   --color-neutral-lighter: #d8d8d8;
@@ -21,6 +22,7 @@
   --color-border: rgba(0, 0, 0, 0.15);
   --color-overlay-5: rgba(0, 0, 0, 0.05);
   --color-error: #b00101;
+  --color-success: #32c682;
 
   /* ===== typography ===== */
   --font-family: var(--font-montserrat), sans-serif;

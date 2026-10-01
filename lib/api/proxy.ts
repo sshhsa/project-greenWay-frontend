@@ -1,5 +1,3 @@
-// Серверний хелпер для Route Handlers: пересилає запит на бекенд разом із cookies
-// і повертає відповідь бекенду (статус, JSON, Set-Cookie) без змін.
 import { NextRequest, NextResponse } from 'next/server';
 
 const BACKEND_API_URL = process.env.BACKEND_API_URL;
