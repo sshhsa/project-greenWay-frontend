@@ -32,7 +32,7 @@ export default function LocationFeedbacks({ locationId }: Props) {
     <div className={css.locationFeedbacks}>
       <div className={css.titleButtonBlock}>
       <h2 className={css.title}>Відгуки</h2>
-      <Button className={css.btn}>Залишити відгук</Button> </div>
+      <Button className={css.btn} href={`/locations/${locationId}/feedback`}>Залишити відгук</Button> </div>
      <FeedbackSlider feedbacks={feedback} />
   </div>)
 }
