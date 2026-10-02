@@ -1,10 +1,8 @@
-// Власник: Христина
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
 
 import { useAuthStore } from '@/lib/store/authStore';
-import Modal from '@/components/Modal/Modal';
 import AddFeedbackModal from '@/components/AddFeedbackModal/AddFeedbackModal';
 import AuthPromptModal from '@/components/AuthPromptModal/AuthPromptModal';
 
@@ -16,13 +14,9 @@ export default function FeedbackModal() {
   const handleClose = () => {
     router.back();
   };
-  return (
-    <Modal onClose={handleClose}>
-      {isAuthenticated ? (
-        <AddFeedbackModal locationId={locationId} onClose={handleClose} />
-      ) : (
-        <AuthPromptModal onClose={handleClose} />
-      )}
-    </Modal>
+  return isAuthenticated ? (
+    <AddFeedbackModal locationId={locationId} onClose={handleClose} />
+  ) : (
+    <AuthPromptModal onClose={handleClose} />
   );
 }
