@@ -1,4 +1,3 @@
-// Власник: Олександр (TL)
 import { NextRequest } from 'next/server';
 
 import { proxyToBackend } from '@/lib/api/proxy';

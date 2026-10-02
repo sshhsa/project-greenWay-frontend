@@ -1,8 +1,11 @@
-// Власник: TBD (див. docs/FRONTEND_TASKS.md)
-// Функція запиту з браузера до нашого Route Handler (див. lib/api/auth.ts як приклад).
-// GET /api/feedbacks?limit=6 → Feedback[]
+import { nextServer } from './client';
+import type { PaginatedResponse } from '@/types/api';
 import type { Feedback } from '@/types/feedback';
 
-export const getLatestFeedbacks = async (_limit = 6): Promise<Feedback[]> => {
-  throw new Error('TODO: getLatestFeedbacks');
+export const getLatestFeedbacks = async (limit = 6): Promise<Feedback[]> => {
+  const { data } = await nextServer.get<PaginatedResponse<Feedback>>('/feedbacks', {
+    params: { limit },
+  });
+
+  return data.items;
 };

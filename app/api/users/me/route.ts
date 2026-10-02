@@ -6,7 +6,6 @@ export async function GET(req: NextRequest) {
   return proxyToBackend(req, '/users/me');
 }
 
-// Власник: Маркіян — редагування профілю (ім'я + аватар, multipart/form-data)
 export async function PATCH(req: NextRequest) {
   return proxyToBackend(req, '/users/me');
 }
