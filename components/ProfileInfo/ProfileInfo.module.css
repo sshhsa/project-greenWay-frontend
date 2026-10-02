@@ -1,3 +1,59 @@
-/* Власник: TBD */
-.profileInfo {
+/* Мобільна версія (базові стилі) */
+.profileWrapper {
+width: 100vw;
+background-color: var(--color-bg-soft, #fff2ec); /* фон секцій */
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 32px 32px 24px 32px;
+box-sizing: border-box;
+}
+
+.avatar {
+width: 145px;
+height: 145px;
+border-radius: 50%;
+object-fit: cover;
+flex-shrink: 0;
+}
+
+.userInfo {
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+gap: 4px;
+margin-top: 16px;
+}
+
+.name {
+font-family: 'Montserrat', sans-serif;
+font-size: 20px;
+font-weight: 700;
+line-height: 1.3;
+letter-spacing: -0.01em;
+color: var(--some-text-color, #111111);
+}
+
+.articles {
+font-family: 'Montserrat', sans-serif;
+font-size: 14px;
+color: var(--color-text-secondary, #666666);
+}
+
+/* Планшети та десктоп */
+@media screen and (min-width: 768px) {
+.profileWrapper {
+flex-direction: row;
+align-items: center;
+justify-content: flex-start;
+padding: 32px 64px;
+gap: 24px;
+}
+
+.userInfo {
+align-items: flex-start;
+text-align: left;
+margin-top: 0;
+}
 }

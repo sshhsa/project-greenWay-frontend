@@ -1,11 +1,25 @@
-// Власник: TBD (див. docs/FRONTEND_TASKS.md)
-// Аватар, ім'я, кількість статей. Без userId — поточний користувач
-// TODO: верстка за макетом у 3 брейкпоінтах; 'use client' додай, якщо потрібні хуки/події
+'use client';
 
 import css from './ProfileInfo.module.css';
 
-type Props = { userId?: string };
+export default function ProfileInfo() {
+const user = {
+name: "Назар Ткаченко",
+avatarUrl: "/avatar.png",
+articlesAmount: 6,
+};
 
-export default function ProfileInfo({ userId }: Props) {
-  return <div className={css.profileInfo}>ProfileInfo — TODO</div>;
+return (
+<div className={css.profileWrapper}>
+<img
+className={css.avatar}
+src={user.avatarUrl}
+alt={user.name}
+/>
+<div className={css.userInfo}>
+<h2 className={css.name}>{user.name}</h2>
+<p className={css.articles}>Статей: {user.articlesAmount}</p>
+</div>
+</div>
+);
 }

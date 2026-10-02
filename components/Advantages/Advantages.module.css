@@ -1,3 +1,99 @@
-/* Власник: TBD */
 .advantages {
+padding: var(--section-padding-large) 0;
+background-color: var(--color-bg-soft);
+}
+
+
+.container {
+max-width: var(--container-max);
+margin: 0 auto;
+padding: 0 var(--page-padding);
+}
+
+
+.title {
+margin: 0 0 var(--space-8);
+color: var(--color-text);
+font-family: var(--font-family);
+font-size: var(--fs-h2);
+font-weight: var(--fw-bold);
+line-height: var(--lh-h2);
+letter-spacing: var(--ls-heading);
+}
+
+
+.list {
+display: grid;
+grid-template-columns: 1fr;
+gap: var(--space-4);
+margin: 0;
+padding: 0;
+list-style: none;
+}
+
+
+.item {
+min-height: 225px;
+padding: var(--space-4);
+background-color: var(--color-accent-lighter);
+border-radius: var(--radius-lg);
+}
+
+
+.icon {
+display: block;
+width: 64px;
+height: 64px;
+margin-bottom: var(--space-4);
+color: var(--color-black);
+fill: currentColor;
+}
+
+
+.itemTitle {
+margin: 0 0 var(--space-3);
+color: var(--color-text);
+font-family: var(--font-family);
+font-size: var(--fs-h6);
+font-weight: var(--fw-bold);
+line-height: var(--lh-h6);
+letter-spacing: var(--ls-heading);
+}
+
+
+.description {
+margin: 0;
+color: var(--color-text);
+--font-family: var(--font-montserrat), sans-serif;
+font-size: var(--fs-text-regular);
+font-weight: var(--fw-regular);
+line-height: var(--lh-text);
+}
+
+
+/* Tablet */
+@media screen and (min-width: 768px) {
+.list {
+grid-template-columns: repeat(2, 1fr);
+gap: var(--space-4);
+}
+
+
+.item:last-child {
+grid-column: 1 / -1;
+}
+}
+
+
+/* Desktop */
+@media screen and (min-width: 1440px) {
+.list {
+grid-template-columns: repeat(3, 1fr);
+gap: var(--space-6);
+}
+
+
+.item:last-child {
+grid-column: auto;
+}
 }
