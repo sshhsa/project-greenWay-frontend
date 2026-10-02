@@ -1,3 +1,13 @@
-/* Власник: TBD */
-.latestFeedbacks {
+.section {
+  padding: var(--section-padding-large) var(--page-padding);
+  background-color: var(--color-bg-soft);
+}
+
+.title {
+  font-family: var(--font-family);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-h2);
+  letter-spacing: var(--ls-heading);
+  color: var(--color-text-brown);
 }

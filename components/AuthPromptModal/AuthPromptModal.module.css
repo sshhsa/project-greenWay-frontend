@@ -1,3 +1,125 @@
 /* Власник: TBD */
-.authPromptModal {
+.backdrop {
+  position: fixed;
+  z-index: 50;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+  padding: var(--space-5) var(--page-padding);
+  background: var(--color-text-muted);
+}
+
+.modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: var(--max-width-large);
+  padding: var(--space-16) var(--space-5) var(--space-8);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-soft);
+  text-align: center;
+}
+
+.closeButton {
+  position: absolute;
+  top: var(--space-5);
+  right: var(--space-5);
+  display: grid;
+  place-items: center;
+  width: var(--space-8);
+  height: var(--space-8);
+  border-radius: var(--radius-sm);
+  color: var(--color-black);
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+}
+
+.closeButton:hover {
+  background: var(--color-accent-lighter);
+  color: var(--color-accent);
+}
+
+.title {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h2);
+  letter-spacing: var(--ls-heading);
+}
+
+.text {
+  max-width: var(--max-width-medium);
+  font-size: var(--fs-text-medium);
+  line-height: var(--lh-text);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  margin-top: var(--space-4);
+}
+
+.signIn,
+.signUp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2) var(--space-6);
+  font-size: var(--fs-text-medium);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-text);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-sm);
+  transition:
+    background-color var(--transition),
+    border-color var(--transition);
+}
+
+.signIn {
+  color: var(--color-white);
+  background-color: var(--color-accent);
+}
+
+.signIn:hover,
+.signIn:focus-visible {
+  background-color: var(--color-accent-darker);
+}
+
+.signUp {
+  background-color: var(--color-neutral-lightest);
+  border-color: var(--color-border);
+}
+
+.signUp:hover,
+.signUp:focus-visible {
+  border-color: var(--color-accent);
+}
+
+.closeButton:focus-visible,
+.signIn:focus-visible,
+.signUp:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (min-width: 768px) {
+  .modal {
+    padding: var(--space-16);
+  }
+
+  .actions {
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--space-6);
+  }
+
+  .signIn,
+  .signUp {
+    min-width: 204px;
+  }
 }

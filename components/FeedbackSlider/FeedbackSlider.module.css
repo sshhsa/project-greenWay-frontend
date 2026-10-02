@@ -1,0 +1,87 @@
+.swiper {
+  width: 100%;
+  margin: var(--space-10) auto;
+}
+
+.slide {
+  width: 100%;
+  height: auto;
+  display: flex;
+}
+
+/* mobile adaptive */
+@media (min-width: 375px) and (max-width: 767px) {
+  .swiper {
+    width: 335px;
+  }
+
+  .slide {
+    width: 335px;
+  }
+}
+
+/* tablet: 2 × 340px + 24px gap */
+@media (min-width: 768px) and (max-width: 1439px) {
+  .swiper {
+    width: 704px;
+  }
+
+  .slide {
+    width: 340px;
+  }
+}
+
+/* desktop: 3 × 421px + 2 × 24px gap */
+@media (min-width: 1440px) {
+  .swiper {
+    width: 1311px;
+  }
+
+  .slide {
+    width: 421px;
+  }
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+
+  margin-top: var(--space-6);
+}
+
+.prevButton,
+.nextButton {
+  width: var(--space-12);
+  height: var(--space-12);
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--color-accent-lighter);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+
+  color: var(--color-text-brown);
+  cursor: pointer;
+
+  transition: var(--transition);
+}
+
+.arrowIcon {
+  width: var(--space-6);
+  height: var(--space-6);
+}
+
+.prevButton:hover,
+.nextButton:hover {
+  background-color: var(--color-accent-light);
+}
+
+.prevButton:global(.swiper-button-disabled),
+.nextButton:global(.swiper-button-disabled) {
+  opacity: 0.5;
+  cursor: default;
+}

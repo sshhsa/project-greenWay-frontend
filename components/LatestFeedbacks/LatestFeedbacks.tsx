@@ -1,9 +1,34 @@
-// Власник: TBD (див. docs/FRONTEND_TASKS.md)
-// Swiper з останніми відгуками (FeedbackCard)
-// TODO: верстка за макетом у 3 брейкпоінтах; 'use client' додай, якщо потрібні хуки/події
+'use client';
+
+import { useEffect, useState } from 'react';
+
+import type { Feedback } from '@/types/feedback';
+import { getLatestFeedbacks } from '@/lib/api/getLatestFeedbacks';
+import FeedbackSlider from '@/components/FeedbackSlider/FeedbackSlider';
 
 import css from './LatestFeedbacks.module.css';
 
 export default function LatestFeedbacks() {
-  return <div className={css.latestFeedbacks}>LatestFeedbacks — TODO</div>;
+  const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
+
+  useEffect(() => {
+    const loadFeedbacks = async () => {
+      try {
+        const data = await getLatestFeedbacks(6);
+        setFeedbacks(data);
+      } catch (error) {
+        console.error('Failed to load feedbacks:', error);
+      }
+    };
+
+    loadFeedbacks();
+  }, []);
+
+  return (
+    <section className={css.section}>
+      <h2 className={css.title}>Останні відгуки</h2>
+
+      <FeedbackSlider feedbacks={feedbacks} />
+    </section>
+  );
 }
