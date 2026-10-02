@@ -8,6 +8,7 @@ export type Location = {
   locationType: string; // slug типу, напр. 'more'
   region: string; // slug регіону, напр. 'odeshchyna'
   description: string;
+  coordinates?: { lat: number; lon: number }; // lat -90..90, lon -180..180
   rate: number;
   ownerId: string | Pick<User, '_id' | 'name' | 'avatarUrl'>;
   feedbacksId: string[] | Feedback[];
