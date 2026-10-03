@@ -40,26 +40,27 @@ export type LocationFormProps = {
   initialValues?: Partial<Omit<LocationFormValues, "image">> & {
     image?: File | null;
   };
-  regions: LocationRegionOption[]; 
   onSubmit: (values: LocationFormValues) => void | Promise<void>;
   onCancel?: () => void;
 };
 
-type CategoryApiResponse = {
-  id?: string | number;
-  value?: string | number;
-  slug?: string | number | null;
-  name?: string | null;
-  label?: string | null;
+type ApiLocationType = {
+  type: string;
+  slug: string;
+};
+
+type ApiRegion = {
+  region: string;
+  slug: string;
 };
 
 export function LocationForm({
   initialValues: providedInitialValues,
-  regions = [],
   onSubmit,
   onCancel,
 }: LocationFormProps) {
   const [categories, setCategories] = useState<LocationCategoryOption[]>([]);
+  const [regions, setRegions] = useState<LocationRegionOption[]>([]);
   const [isCategoriesLoading, setIsCategoriesLoading] = useState(true);
   const [categoriesError, setCategoriesError] = useState<string | null>(null);
   const [selectedImagePreviewUrl, setSelectedImagePreviewUrl] = useState<string | null>(null);
@@ -143,18 +144,29 @@ export function LocationForm({
 
         if (!isMounted) return;
 
-        if (Array.isArray(data)) {
-          setCategories(
-            data.map((cat: CategoryApiResponse) => {
-              const label = cat.name ?? cat.label ?? "";
-              const value = String(cat.id ?? cat.value ?? cat.slug ?? "");
+        if (data && typeof data === "object" && "locationTypes" in data && "regions" in data) {
+          const { locationTypes, regions: apiRegions } = data as {
+            locationTypes: ApiLocationType[];
+            regions: ApiRegion[];
+          };
 
-              return {
-                label: label || value,
-                value,
-              };
-            }),
-          );
+          if (Array.isArray(locationTypes)) {
+            setCategories(
+              locationTypes.map((cat) => ({
+                label: cat.type || cat.slug || "",
+                value: cat.slug || "",
+              })),
+            );
+          }
+
+          if (Array.isArray(apiRegions)) {
+            setRegions(
+              apiRegions.map((reg) => ({
+                label: reg.region || reg.slug || "",
+                value: reg.slug || "",
+              })),
+            );
+          }
         }
       } catch (error) {
         if (!isMounted) return;
@@ -246,84 +258,85 @@ export function LocationForm({
     }
   };
 
-return (
-  <form 
-    className={css.locationForm} 
-    onSubmit={formik.handleSubmit} 
-    noValidate 
-    aria-busy={isCategoriesLoading || formik.isSubmitting}
-  >
-    <div className={css.fieldGroup}>
-      <p className={css.label} id="location-image-label">
-        Обкладинка
-      </p>
-      
-      <div className={css.imagePreview}>
-        <Image 
-          src={selectedImagePreviewUrl ?? "/placeholder.jpg"} 
-          alt={selectedImagePreviewUrl ? "Попередній перегляд фото локації" : "Плейсхолдер фото локації"} 
-          fill 
-          sizes="(max-width: 767px) 335px, (max-width: 1439px) 704px, 1091px" 
-          className={css.previewImage} 
-          priority={!selectedImagePreviewUrl} 
-          unoptimized={Boolean(selectedImagePreviewUrl)} 
-        />
-      </div>
-
-      <input 
-        id="location-image" 
-        name="image" 
-        type="file" 
-        accept="image/jpeg,image/png" 
-        className={css.fileInput} 
-        ref={fileInputRef} 
-        onChange={handleImageChange} 
-      />
-      <label 
-        className={css.uploadButton} 
-        htmlFor="location-image" 
-        id="location-image-upload-label"
-      >
-        Завантажити фото
-      </label>
-
-      {getError("image") && (
-        <p className={css.error}>{String(getError("image"))}</p>
-      )}
-    </div>
-    <div className={css.fieldsGrid}>
-      {categoriesError && (
-        <p className={css.statusMessage} role="status">
-          Не вдалося завантажити категорії локацій. Оновіть сторінку.
-        </p>
-      )}
+  return (
+    <form 
+      className={css.locationForm} 
+      onSubmit={formik.handleSubmit} 
+      noValidate 
+      aria-busy={isCategoriesLoading || formik.isSubmitting}
+    >
       <div className={css.fieldGroup}>
-        <label className={css.label} htmlFor="location-name">
-          Назва місця
-        </label>
+        <p className={css.label} id="location-image-label">
+          Обкладинка
+        </p>
+        
+        <div className={css.imagePreview}>
+          <Image 
+            src={selectedImagePreviewUrl ?? "/placeholder.jpg"} 
+            alt={selectedImagePreviewUrl ? "Попередній перегляд фото локації" : "Плейсхолдер фото локації"} 
+            fill 
+            sizes="(max-width: 767px) 335px, (max-width: 1439px) 704px, 1091px" 
+            className={css.previewImage} 
+            priority={!selectedImagePreviewUrl} 
+            unoptimized={Boolean(selectedImagePreviewUrl)} 
+          />
+        </div>
+
         <input 
-          id="location-name" 
-          type="text" 
-          placeholder="Введіть назву місця" 
-          className={classNames(css.input, getError("name") && css.inputError)} 
-          {...formik.getFieldProps("name")} 
+          id="location-image" 
+          name="image" 
+          type="file" 
+          accept="image/jpeg,image/png"
+          className={css.fileInput} 
+          ref={fileInputRef} 
+          onChange={handleImageChange} 
         />
-        {getError("name") && (
-          <p className={css.error}>{String(getError("name"))}</p>
+        <label 
+          className={css.uploadButton} 
+          htmlFor="location-image" 
+          id="location-image-upload-label"
+        >
+          Завантажити фото
+        </label>
+
+        {getError("image") && (
+          <p className={css.error}>{String(getError("image"))}</p>
         )}
       </div>
-      <div className={css.fieldGroup}>
-        <label className={css.label} htmlFor="location-type">
-          Тип місця
-        </label>
-        <select 
-          id="location-type" 
-          className={classNames(css.select, getError("locationType") && css.inputError)} 
-          {...formik.getFieldProps("locationType")}
-        >
-          <option value="">Оберіть тип місця</option>
-          {categories.map((category) => (
-            <option key={category.value} value={category.value}>
+
+      <div className={css.fieldsGrid}>
+        {categoriesError && (
+          <p className={css.statusMessage} role="status">
+            Не вдалося завантажити категорії локацій. Оновіть сторінку.
+          </p>
+        )}
+        <div className={css.fieldGroup}>
+          <label className={css.label} htmlFor="location-name">
+            Назва місця
+          </label>
+          <input 
+            id="location-name" 
+            type="text" 
+            placeholder="Введіть назву місця" 
+            className={classNames(css.input, getError("name") && css.inputError)} 
+            {...formik.getFieldProps("name")} 
+          />
+          {getError("name") && (
+            <p className={css.error}>{String(getError("name"))}</p>
+          )}
+        </div>
+        <div className={css.fieldGroup}>
+          <label className={css.label} htmlFor="location-type">
+            Тип місця
+          </label>
+          <select 
+            id="location-type" 
+            className={classNames(css.select, getError("locationType") && css.inputError)} 
+            {...formik.getFieldProps("locationType")}
+          >
+            <option value="">Оберіть тип місця</option>
+            {categories.map((category) => (
+              <option key={category.value} value={category.value}>
               {category.label}
             </option>
           ))}

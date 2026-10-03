@@ -1,13 +1,38 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { LocationForm } from '@/components/LocationForm/LocationForm';
+import type { LocationFormValues } from '@/components/LocationForm/LocationForm';
+import { createLocation } from '@/lib/api/createLocation';
 import styles from './page.module.css';
 
-type NewLocationFormValues = Record<string, unknown>;
-
 export default function NewLocationPage() {
-  const handleSubmit = async (values: NewLocationFormValues) => {
-    console.log(values);
+  const router = useRouter();
+
+  const handleSubmit = async (values: LocationFormValues) => {
+    try {
+      const formData = new FormData();
+
+      formData.append("name", values.name.trim());
+      formData.append("locationType", values.locationType);
+      formData.append("region", values.region);
+      formData.append("description", values.description.trim());
+      
+      if (values.image) {
+        formData.append("image", values.image);
+      }
+
+      const result = await createLocation(formData) as { id?: string | number } | null;
+
+      toast.success("Локацію успішно створено!");
+
+      const locationId = result?.id;
+      router.push(locationId ? `/locations/${locationId}` : "/locations");
+    } catch (error) {
+      console.error("Помилка при створенні локації:", error);
+      toast.error("Не вдалося створити локацію. Спробуйте ще раз.");
+    }
   };
 
   return (
@@ -15,7 +40,6 @@ export default function NewLocationPage() {
       <div className={styles.contentWrapper}>
         <h1 className={styles.title}>Додавання нового місця</h1>
         <LocationForm 
-          regions={[]} 
           onSubmit={handleSubmit} 
         />
       </div>
