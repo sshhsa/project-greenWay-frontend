@@ -2,18 +2,29 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  color: var(--color-black);
 }
 
+.starRating > span,
 .starRating button {
   display: grid;
   place-items: center;
+  width: var(--fs-text-large);
+  height: var(--fs-text-large);
+  flex: 0 0 auto;
+}
+
+.starRating svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.starRating button {
   padding: 0;
   border: 0;
   background: transparent;
-  color: var(--color-black);
-  font: inherit;
-  font-size: var(--fs-text-large);
-  line-height: 1;
+  color: inherit;
   cursor: pointer;
   transition:
     color var(--transition),
