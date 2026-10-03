@@ -1,0 +1,32 @@
+.page {
+  min-height: 100%;
+  background-color: var(--color-bg-soft);
+}
+
+.headingSection {
+  padding-block: var(--section-padding-small);
+}
+
+.title {
+  margin: 0;
+
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-heading);
+  letter-spacing: -0.01em;
+  color: var(--color-text-brown);
+}
+
+.formSection {
+  padding-bottom: var(--section-padding-large);
+}
+
+.formInner {
+  width: 100%;
+}
+
+@media (min-width: 1440px) {
+  .formInner {
+    max-width: 1089px;
+  }
+}
