@@ -1,3 +1,31 @@
-/* Власник: TBD */
+/* Власник: Христина */
 .locationFeedbacks {
+            padding: var(--section-padding-large) var(--page-padding) ;
+            background-color: var(--color-bg-soft); 
 }
+
+.titleButtonBlock{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.title{
+    font-family: var(--font-family);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-heading);
+    color: var(--color-text-brown);
+}
+
+.titleButtonBlock .btn{
+    background-color: var(--color-accent);
+    padding: var(--space-3);
+    font-weight: var(--fw-medium);
+    font-size: var(--fs-text-regular);
+    line-height: var(--lh-text);
+}
+
+

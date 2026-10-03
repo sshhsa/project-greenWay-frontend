@@ -1,0 +1,46 @@
+/* Власник: Валерій */
+.locationMap {
+  position: relative;
+  width: 100%;
+  max-width: var(--max-width-xlarge);
+  margin: 0 auto;
+  aspect-ratio: 335 / 224;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg-soft);
+}
+
+.frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  border: var(--border-width) solid var(--color-border);
+}
+
+.fallbackText {
+  font-family: var(--font-family);
+  font-size: var(--fs-text-small);
+  line-height: var(--lh-text);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .locationMap {
+    aspect-ratio: 704 / 400;
+  }
+}
+
+@media (min-width: 1440px) {
+  .locationMap {
+    aspect-ratio: 1024 / 480;
+  }
+}
