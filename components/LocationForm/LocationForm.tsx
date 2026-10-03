@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import type { ChangeEvent } from "react";
-import { useFormik } from "formik";
-import Image from "next/image";
-import toast from "react-hot-toast";
-import * as Yup from "yup";
-import { Button } from "@/components/ui/Button/Button";
-import { getCategories } from "@/lib/api/getCategories";
-import css from "./LocationForm.module.css";
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { ChangeEvent } from 'react';
+import { useFormik } from 'formik';
+import Image from 'next/image';
+import toast from 'react-hot-toast';
+import * as Yup from 'yup';
+import { Button } from '@/components/ui/Button/Button';
+import { getCategories } from '@/lib/api/getCategories';
+import css from './LocationForm.module.css';
 
 function classNames(...values: Array<string | false | null | undefined>) {
-  return values.filter(Boolean).join(" ");
+  return values.filter(Boolean).join(' ');
 }
 
 export type LocationCategoryOption = { label: string; value: string };
@@ -26,20 +26,21 @@ export type LocationFormValues = {
 };
 
 const MAX_IMAGE_SIZE = 1024 * 1024;
-const SUPPORTED_IMAGE_TYPES = ["image/jpeg", "image/png"];
+const SUPPORTED_IMAGE_TYPES = ['image/jpeg', 'image/png'];
 
 const emptyLocationFormValues: LocationFormValues = {
-  name: "",
-  locationType: "",
-  description: "",
+  name: '',
+  locationType: '',
+  description: '',
   image: null,
-  region: "",
+  region: '',
 };
 
 export type LocationFormProps = {
-  initialValues?: Partial<Omit<LocationFormValues, "image">> & {
+  initialValues?: Partial<Omit<LocationFormValues, 'image'>> & {
     image?: File | null;
   };
+  initialImageUrl?: string;
   onSubmit: (values: LocationFormValues) => void | Promise<void>;
   onCancel?: () => void;
 };
@@ -56,6 +57,7 @@ type ApiRegion = {
 
 export function LocationForm({
   initialValues: providedInitialValues,
+  initialImageUrl,
   onSubmit,
   onCancel,
 }: LocationFormProps) {
@@ -63,8 +65,10 @@ export function LocationForm({
   const [regions, setRegions] = useState<LocationRegionOption[]>([]);
   const [isCategoriesLoading, setIsCategoriesLoading] = useState(true);
   const [categoriesError, setCategoriesError] = useState<string | null>(null);
-  const [selectedImagePreviewUrl, setSelectedImagePreviewUrl] = useState<string | null>(null);
-  
+  const [selectedImagePreviewUrl, setSelectedImagePreviewUrl] = useState<string | null>(
+    null,
+  );
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const descriptionTextareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -82,40 +86,42 @@ export function LocationForm({
       Yup.object({
         name: Yup.string()
           .trim()
-          .min(3, "Назва має містити щонайменше 3 символи")
-          .max(96, "Назва має містити не більше 96 символів")
-          .required("Введіть назву місця"),
+          .min(3, 'Назва має містити щонайменше 3 символи')
+          .max(96, 'Назва має містити не більше 96 символів')
+          .required('Введіть назву місця'),
         locationType: Yup.string()
-          .max(64, "Тип місця має містити не більше 64 символів")
+          .max(64, 'Тип місця має містити не більше 64 символів')
           .oneOf(
             categories.map((cat) => cat.value),
-            "Оберіть тип місця зі списку",
+            'Оберіть тип місця зі списку',
           )
-          .required("Оберіть тип місця"),
+          .required('Оберіть тип місця'),
         region: Yup.string()
           .oneOf(
             regions.map((reg) => reg.value),
-            "Оберіть регіон зі списку",
+            'Оберіть регіон зі списку',
           )
-          .required("Оберіть регіон"),
+          .required('Оберіть регіон'),
         description: Yup.string()
           .trim()
-          .min(20, "Опис має містити щонайменше 20 символів")
-          .max(6000, "Опис має містити не більше 6000 символів")
-          .required("Детальний опис локації"),
+          .min(20, 'Опис має містити щонайменше 20 символів')
+          .max(6000, 'Опис має містити не більше 6000 символів')
+          .required('Детальний опис локації'),
         image: Yup.mixed<File>()
           .nullable()
-          .test("imageRequired", "Додайте фото локації", (file) => file instanceof File)
           .test(
-            "fileType",
-            "Підтримуються лише JPG або PNG зображення",
-            (file) => (file ? SUPPORTED_IMAGE_TYPES.includes(file.type) : true),
+            'imageRequired',
+            'Додайте фото локації',
+            (file) => Boolean(initialImageUrl) || file instanceof File,
           )
-          .test("fileSize", "Розмір зображення має бути менше 1 МБ", (file) =>
+          .test('fileType', 'Підтримуються лише JPG або PNG зображення', (file) =>
+            file ? SUPPORTED_IMAGE_TYPES.includes(file.type) : true,
+          )
+          .test('fileSize', 'Розмір зображення має бути менше 1 МБ', (file) =>
             file ? file.size < MAX_IMAGE_SIZE : true,
           ),
       }),
-    [categories, regions],
+    [categories, regions, initialImageUrl],
   );
 
   const formik = useFormik<LocationFormValues>({
@@ -144,7 +150,12 @@ export function LocationForm({
 
         if (!isMounted) return;
 
-        if (data && typeof data === "object" && "locationTypes" in data && "regions" in data) {
+        if (
+          data &&
+          typeof data === 'object' &&
+          'locationTypes' in data &&
+          'regions' in data
+        ) {
           const { locationTypes, regions: apiRegions } = data as {
             locationTypes: ApiLocationType[];
             regions: ApiRegion[];
@@ -153,8 +164,8 @@ export function LocationForm({
           if (Array.isArray(locationTypes)) {
             setCategories(
               locationTypes.map((cat) => ({
-                label: cat.type || cat.slug || "",
-                value: cat.slug || "",
+                label: cat.type || cat.slug || '',
+                value: cat.slug || '',
               })),
             );
           }
@@ -162,8 +173,8 @@ export function LocationForm({
           if (Array.isArray(apiRegions)) {
             setRegions(
               apiRegions.map((reg) => ({
-                label: reg.region || reg.slug || "",
-                value: reg.slug || "",
+                label: reg.region || reg.slug || '',
+                value: reg.slug || '',
               })),
             );
           }
@@ -174,7 +185,7 @@ export function LocationForm({
         const message =
           error instanceof Error
             ? error.message
-            : "Не вдалося завантажити категорії локацій.";
+            : 'Не вдалося завантажити категорії локацій.';
 
         setCategoriesError(message);
         toast.error(message);
@@ -222,9 +233,9 @@ export function LocationForm({
     formik.touched[field] && formik.errors[field] ? formik.errors[field] : null;
 
   const resizeDescriptionTextarea = (textarea: HTMLTextAreaElement) => {
-    textarea.style.height = "auto";
+    textarea.style.height = 'auto';
     textarea.style.height = `${Math.min(textarea.scrollHeight, 400)}px`;
-    textarea.style.overflowY = textarea.scrollHeight > 400 ? "auto" : "hidden";
+    textarea.style.overflowY = textarea.scrollHeight > 400 ? 'auto' : 'hidden';
   };
 
   useEffect(() => {
@@ -244,14 +255,14 @@ export function LocationForm({
     if (selectedImagePreviewUrl) URL.revokeObjectURL(selectedImagePreviewUrl);
 
     setSelectedImagePreviewUrl(file ? URL.createObjectURL(file) : null);
-    await formik.setFieldValue("image", file, true);
-    await formik.setFieldTouched("image", true, true);
+    await formik.setFieldValue('image', file, true);
+    await formik.setFieldTouched('image', true, true);
   };
 
   const handleCancel = () => {
     formik.resetForm();
     if (selectedImagePreviewUrl) URL.revokeObjectURL(selectedImagePreviewUrl);
-    if (fileInputRef.current) fileInputRef.current.value = "";
+    if (fileInputRef.current) fileInputRef.current.value = '';
     setSelectedImagePreviewUrl(null);
     if (onCancel) {
       onCancel();
@@ -259,49 +270,51 @@ export function LocationForm({
   };
 
   return (
-    <form 
-      className={css.locationForm} 
-      onSubmit={formik.handleSubmit} 
-      noValidate 
+    <form
+      className={css.locationForm}
+      onSubmit={formik.handleSubmit}
+      noValidate
       aria-busy={isCategoriesLoading || formik.isSubmitting}
     >
       <div className={css.fieldGroup}>
         <p className={css.label} id="location-image-label">
           Обкладинка
         </p>
-        
+
         <div className={css.imagePreview}>
-          <Image 
-            src={selectedImagePreviewUrl ?? "/placeholder.jpg"} 
-            alt={selectedImagePreviewUrl ? "Попередній перегляд фото локації" : "Плейсхолдер фото локації"} 
-            fill 
-            sizes="(max-width: 767px) 335px, (max-width: 1439px) 704px, 1091px" 
-            className={css.previewImage} 
-            priority={!selectedImagePreviewUrl} 
-            unoptimized={Boolean(selectedImagePreviewUrl)} 
+          <Image
+            src={selectedImagePreviewUrl ?? initialImageUrl ?? '/placeholder.jpg'}
+            alt={
+              selectedImagePreviewUrl || initialImageUrl
+                ? 'Попередній перегляд фото локації'
+                : 'Плейсхолдер фото локації'
+            }
+            fill
+            sizes="(max-width: 767px) 335px, (max-width: 1439px) 704px, 1091px"
+            className={css.previewImage}
+            priority={!selectedImagePreviewUrl}
+            unoptimized={Boolean(selectedImagePreviewUrl)}
           />
         </div>
 
-        <input 
-          id="location-image" 
-          name="image" 
-          type="file" 
+        <input
+          id="location-image"
+          name="image"
+          type="file"
           accept="image/jpeg,image/png"
-          className={css.fileInput} 
-          ref={fileInputRef} 
-          onChange={handleImageChange} 
+          className={css.fileInput}
+          ref={fileInputRef}
+          onChange={handleImageChange}
         />
-        <label 
-          className={css.uploadButton} 
-          htmlFor="location-image" 
+        <label
+          className={css.uploadButton}
+          htmlFor="location-image"
           id="location-image-upload-label"
         >
           Завантажити фото
         </label>
 
-        {getError("image") && (
-          <p className={css.error}>{String(getError("image"))}</p>
-        )}
+        {getError('image') && <p className={css.error}>{String(getError('image'))}</p>}
       </div>
 
       <div className={css.fieldsGrid}>
@@ -314,96 +327,97 @@ export function LocationForm({
           <label className={css.label} htmlFor="location-name">
             Назва місця
           </label>
-          <input 
-            id="location-name" 
-            type="text" 
-            placeholder="Введіть назву місця" 
-            className={classNames(css.input, getError("name") && css.inputError)} 
-            {...formik.getFieldProps("name")} 
+          <input
+            id="location-name"
+            type="text"
+            placeholder="Введіть назву місця"
+            className={classNames(css.input, getError('name') && css.inputError)}
+            {...formik.getFieldProps('name')}
           />
-          {getError("name") && (
-            <p className={css.error}>{String(getError("name"))}</p>
-          )}
+          {getError('name') && <p className={css.error}>{String(getError('name'))}</p>}
         </div>
         <div className={css.fieldGroup}>
           <label className={css.label} htmlFor="location-type">
             Тип місця
           </label>
-          <select 
-            id="location-type" 
-            className={classNames(css.select, getError("locationType") && css.inputError)} 
-            {...formik.getFieldProps("locationType")}
+          <select
+            id="location-type"
+            className={classNames(css.select, getError('locationType') && css.inputError)}
+            {...formik.getFieldProps('locationType')}
           >
             <option value="">Оберіть тип місця</option>
             {categories.map((category) => (
               <option key={category.value} value={category.value}>
-              {category.label}
-            </option>
-          ))}
-        </select>
-        {getError("locationType") && (
-          <p className={css.error}>{String(getError("locationType"))}</p>
-        )}
+                {category.label}
+              </option>
+            ))}
+          </select>
+          {getError('locationType') && (
+            <p className={css.error}>{String(getError('locationType'))}</p>
+          )}
+        </div>
+        <div className={css.fieldGroup}>
+          <label className={css.label} htmlFor="location-region">
+            Регіон
+          </label>
+          <select
+            id="location-region"
+            className={classNames(css.select, getError('region') && css.inputError)}
+            {...formik.getFieldProps('region')}
+          >
+            <option value="">Оберіть регіон</option>
+            {regions.map((region) => (
+              <option key={region.value} value={region.value}>
+                {region.label}
+              </option>
+            ))}
+          </select>
+          {getError('region') && (
+            <p className={css.error}>{String(getError('region'))}</p>
+          )}
+        </div>
+        <div className={css.fieldGroup}>
+          <label className={css.label} htmlFor="location-description">
+            Детальний опис
+          </label>
+          <textarea
+            id="location-description"
+            ref={descriptionTextareaRef}
+            placeholder="Детальний опис локації"
+            className={classNames(
+              css.textarea,
+              getError('description') && css.inputError,
+            )}
+            rows={5}
+            name="description"
+            value={formik.values.description}
+            onChange={handleDescriptionChange}
+            onBlur={formik.handleBlur}
+          />
+          {getError('description') && (
+            <p className={css.error}>{String(getError('description'))}</p>
+          )}
+        </div>
       </div>
-      <div className={css.fieldGroup}>
-        <label className={css.label} htmlFor="location-region">
-          Регіон
-        </label>
-        <select 
-          id="location-region" 
-          className={classNames(css.select, getError("region") && css.inputError)} 
-          {...formik.getFieldProps("region")}
+      <div className={css.formActions}>
+        <Button
+          type="submit"
+          variant="primary"
+          disabled={isSubmitDisabled}
+          className={css.submitButton}
         >
-          <option value="">Оберіть регіон</option>
-          {regions.map((region) => (
-            <option key={region.value} value={region.value}>
-              {region.label}
-            </option>
-          ))}
-        </select>
-        {getError("region") && (
-          <p className={css.error}>{String(getError("region"))}</p>
-        )}
+          {formik.isSubmitting ? 'Опублікування...' : 'Опублікувати'}
+        </Button>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={handleCancel}
+          disabled={formik.isSubmitting}
+          className={css.cancelButton}
+        >
+          Відмінити
+        </Button>
       </div>
-      <div className={css.fieldGroup}>
-        <label className={css.label} htmlFor="location-description">
-          Детальний опис
-        </label>
-        <textarea 
-          id="location-description" 
-          ref={descriptionTextareaRef} 
-          placeholder="Детальний опис локації" 
-          className={classNames(css.textarea, getError("description") && css.inputError)} 
-          rows={5} 
-          name="description"
-          value={formik.values.description} 
-          onChange={handleDescriptionChange} 
-          onBlur={formik.handleBlur} 
-        />
-        {getError("description") && (
-          <p className={css.error}>{String(getError("description"))}</p>
-        )}
-      </div>
-    </div>
-<div className={css.formActions}>
-  <Button
-    type="submit"
-    variant="primary"
-    disabled={isSubmitDisabled}
-    className={css.submitButton}
-  >
-    {formik.isSubmitting ? "Опублікування..." : "Опублікувати"}
-  </Button>
-  <Button
-    type="button"
-    variant="secondary"
-    onClick={handleCancel}
-    disabled={formik.isSubmitting}
-    className={css.cancelButton}
-  >
-    Відмінити
-  </Button>
-</div>
-</form>
-)
+    </form>
+  );
 }

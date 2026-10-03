@@ -1,8 +1,15 @@
+import { nextServer } from './client';
+import type { SingleResponse } from '@/types/api';
 import type { Location } from '@/types/location';
 
 export const updateLocation = async (
-  _locationId: string,
-  _formData: FormData,
+  locationId: string,
+  formData: FormData,
 ): Promise<Location> => {
-  throw new Error('TODO: updateLocation');
+  const { data } = await nextServer.patch<SingleResponse<Location>>(
+    `/locations/${locationId}`,
+    formData,
+  );
+
+  return data.data;
 };
