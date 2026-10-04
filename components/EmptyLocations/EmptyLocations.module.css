@@ -1,0 +1,28 @@
+.emptyLocations {
+  max-width: 533px;
+  padding: 40px 32px;
+  background-color: var(--color-accent-lighter);
+  border-radius: var(--radius-lg);
+}
+
+.title {
+  font-family: var(--font-family);
+  color: var(--color-text);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-h6);
+  line-height: var(--lh-h6);
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-8);
+}
+
+.link {
+  display: inline-block;
+  border-radius: var(--radius-sm);
+  padding: 9px 12px;
+  font-family: var(--font-family);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-text-medium);
+  line-height: var(--lh-text);
+  color: var(--color-bg);
+  background-color: var(--color-accent);
+}
