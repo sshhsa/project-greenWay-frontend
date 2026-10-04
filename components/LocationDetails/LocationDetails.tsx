@@ -9,6 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getLocationById } from '@/lib/api/getLocationById';
 import css from './LocationDetails.module.css';
 import StarRating from '../StarRating/StarRating';
+import LocationMap from '../LocationMap/LocationMap';
 
 type Props = { locationId: string };
 
@@ -50,5 +51,6 @@ export default function LocationDetails({ locationId }: Props) {
     </div>
      </div>
       <p className={css.description}>{ data.description}</p>
+      <LocationMap coordinates={data.coordinates} />
   </div>)
 }
