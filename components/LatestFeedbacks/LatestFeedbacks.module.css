@@ -1,5 +1,5 @@
 .section {
-  padding: var(--section-padding-large) var(--page-padding);
+  padding-block: var(--section-padding-large);
   background-color: var(--color-bg-soft);
 }
 

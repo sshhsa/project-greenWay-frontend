@@ -26,9 +26,10 @@ export default function LatestFeedbacks() {
 
   return (
     <section className={css.section}>
-      <h2 className={css.title}>Останні відгуки</h2>
-
-      <FeedbackSlider feedbacks={feedbacks} />
+      <div className="container">
+        <h2 className={css.title}>Останні відгуки</h2>
+        <FeedbackSlider feedbacks={feedbacks} />
+      </div>
     </section>
   );
 }
