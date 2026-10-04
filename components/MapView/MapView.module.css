@@ -1,0 +1,6 @@
+.mapView {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-soft);
+}
