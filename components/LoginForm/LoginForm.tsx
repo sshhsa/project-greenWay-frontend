@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
@@ -23,6 +24,7 @@ const schema = Yup.object({
 const initialValues: LoginRequest = { email: '', password: '' };
 
 export default function LoginForm() {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const router = useRouter();
   const setUser = useAuthStore((state) => state.setUser);
 
@@ -62,15 +64,39 @@ export default function LoginForm() {
             <label className={css.label} htmlFor="login-password">
               Пароль*
             </label>
-            <Field
-              id="login-password"
-              name="password"
-              type="password"
-              autoComplete="current-password"
-              placeholder="********"
-              className={css.input}
-              aria-invalid={Boolean(touched.password && errors.password)}
-            />
+            <div className={css.passwordField}>
+              <Field
+                id="login-password"
+                name="password"
+                type={isPasswordVisible ? 'text' : 'password'}
+                autoComplete="current-password"
+                placeholder="********"
+                className={`${css.input} ${css.passwordInput}`}
+                aria-invalid={Boolean(touched.password && errors.password)}
+              />
+              <button
+                className={css.passwordToggle}
+                type="button"
+                aria-label={isPasswordVisible ? 'Приховати пароль' : 'Показати пароль'}
+                aria-controls="login-password"
+                onClick={() => setIsPasswordVisible((visible) => !visible)}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+                  <circle cx="12" cy="12" r="3" />
+                  {isPasswordVisible && <path d="m3 3 18 18" />}
+                </svg>
+              </button>
+            </div>
             <ErrorMessage name="password" component="span" className={css.error} />
           </div>
 
