@@ -42,9 +42,7 @@ export default function EditLocationForm({ locationId }: Props) {
         if (!isMounted) return;
 
         const message =
-          error instanceof Error
-            ? error.message
-            : 'Не вдалося завантажити локацію.';
+          error instanceof Error ? error.message : 'Не вдалося завантажити локацію.';
 
         setError(message);
         toast.error(message);
@@ -70,6 +68,10 @@ export default function EditLocationForm({ locationId }: Props) {
     formData.append('region', values.region);
     formData.append('description', values.description.trim());
 
+    if (values.coordinates) {
+      formData.append('coordinates', JSON.stringify(values.coordinates));
+    }
+
     if (values.image) {
       formData.append('image', values.image);
     }
@@ -83,9 +85,7 @@ export default function EditLocationForm({ locationId }: Props) {
       router.refresh();
     } catch (error) {
       const message =
-        error instanceof Error
-          ? error.message
-          : 'Не вдалося оновити локацію.';
+        error instanceof Error ? error.message : 'Не вдалося оновити локацію.';
 
       toast.error(message);
     }
@@ -115,6 +115,7 @@ export default function EditLocationForm({ locationId }: Props) {
           locationType: location.locationType,
           region: location.region,
           description: location.description,
+          coordinates: location.coordinates ?? null,
         }}
         initialImageUrl={location.image}
         onSubmit={handleSubmit}

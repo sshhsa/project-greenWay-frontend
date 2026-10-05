@@ -6,8 +6,12 @@ import { useFormik } from 'formik';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
+
+import LocationPicker from '@/components/LocationPicker/LocationPicker';
 import { Button } from '@/components/ui/Button/Button';
 import { getCategories } from '@/lib/api/getCategories';
+import type { Coordinates } from '@/types/geocode';
+
 import css from './LocationForm.module.css';
 
 function classNames(...values: Array<string | false | null | undefined>) {
@@ -23,6 +27,7 @@ export type LocationFormValues = {
   description: string;
   image: File | null;
   region: string;
+  coordinates: Coordinates | null;
 };
 
 const MAX_IMAGE_SIZE = 1024 * 1024;
@@ -34,6 +39,7 @@ const emptyLocationFormValues: LocationFormValues = {
   description: '',
   image: null,
   region: '',
+  coordinates: null,
 };
 
 export type LocationFormProps = {
@@ -278,7 +284,7 @@ export function LocationForm({
     >
       <div className={css.fieldGroup}>
         <p className={css.label} id="location-image-label">
-          Обкладинка
+          Обкладинка статті
         </p>
 
         <div className={css.imagePreview}>
@@ -323,6 +329,7 @@ export function LocationForm({
             Не вдалося завантажити категорії локацій. Оновіть сторінку.
           </p>
         )}
+
         <div className={css.fieldGroup}>
           <label className={css.label} htmlFor="location-name">
             Назва місця
@@ -336,6 +343,7 @@ export function LocationForm({
           />
           {getError('name') && <p className={css.error}>{String(getError('name'))}</p>}
         </div>
+
         <div className={css.fieldGroup}>
           <label className={css.label} htmlFor="location-type">
             Тип місця
@@ -356,6 +364,7 @@ export function LocationForm({
             <p className={css.error}>{String(getError('locationType'))}</p>
           )}
         </div>
+
         <div className={css.fieldGroup}>
           <label className={css.label} htmlFor="location-region">
             Регіон
@@ -376,6 +385,7 @@ export function LocationForm({
             <p className={css.error}>{String(getError('region'))}</p>
           )}
         </div>
+
         <div className={css.fieldGroup}>
           <label className={css.label} htmlFor="location-description">
             Детальний опис
@@ -398,7 +408,16 @@ export function LocationForm({
             <p className={css.error}>{String(getError('description'))}</p>
           )}
         </div>
+
+        <div className={css.fieldGroup}>
+          <p className={css.label}>Оберіть розташування</p>
+          <LocationPicker
+            value={formik.values.coordinates}
+            onChange={(coordinates) => formik.setFieldValue('coordinates', coordinates)}
+          />
+        </div>
       </div>
+
       <div className={css.formActions}>
         <Button
           type="submit"
@@ -406,7 +425,7 @@ export function LocationForm({
           disabled={isSubmitDisabled}
           className={css.submitButton}
         >
-          {formik.isSubmitting ? 'Опублікування...' : 'Опублікувати'}
+          {formik.isSubmitting ? 'Збереження...' : 'Зберегти'}
         </Button>
         <Button
           type="button"
