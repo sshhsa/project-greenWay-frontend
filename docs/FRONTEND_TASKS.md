@@ -20,7 +20,7 @@ _Розподіл задач додасть тімлід (дошка GreenWay pr
 
 | Хто | Що | Файли |
 |---|---|---|
-| **Олександр** | блок «Місце розташування» у формах створення/редагування | `components/LocationPicker/*`, підключення в `LocationForm`, `EditLocationForm` |
+| **Анна** | блок «Місце розташування» у формах створення/редагування | `components/LocationPicker/*`, підключення в `LocationForm`, `EditLocationForm` |
 | **Валерій** | спільна карта на leaflet + заміна iframe на сторінці деталей | `components/MapView/*`, `components/LocationMap/*` |
 | **Назарій** | профіль: нумерована пагінація з `?page=`, 6 карток desktop / 4 tablet і mobile, кнопка «Редагувати профіль» | `components/UserLocations/*`, кнопка в `ProfileInfo` |
 | **Крістіна** | модалка «Редагувати профіль» за макетом, відкриття з профілю | `components/EditProfileModal/*` |
@@ -28,5 +28,5 @@ _Розподіл задач додасть тімлід (дошка GreenWay pr
 | **Вікторія** | запити geocode + пошук місця | `lib/api/geocode.ts`, `components/LocationSearch/*` |
 | **Геннадій** | UI-компонент пагінації | `components/ui/Pagination/*` |
 
-Залежності: Олександр чекає `MapView` (Валерій) і `LocationSearch` (Вікторія), Назарій — `Pagination` (Геннадій).
+Залежності: Анна чекає `MapView` (Валерій) і `LocationSearch` (Вікторія), Назарій — `Pagination` (Геннадій).
 Поки чекаєш — працюй із заглушкою, пропси вже зафіксовані.

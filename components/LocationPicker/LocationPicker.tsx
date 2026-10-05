@@ -1,5 +1,5 @@
 'use client';
-// Власник: Олександр (extra, див. docs/FRONTEND_TASKS.md)
+// Власник: Анна (extra, див. docs/FRONTEND_TASKS.md)
 // Блок «Місце розташування» у LocationForm і EditLocationForm:
 // LocationSearch (вибір результату) + MapView з onPick (клік по карті → reversePlace).
 // value/onChange — координати; форма додає їх у FormData як JSON-рядок: coordinates={"lat":..,"lon":..}
