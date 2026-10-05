@@ -23,7 +23,7 @@ _Розподіл задач додасть тімлід (дошка GreenWay pr
 | **Анна** | блок «Місце розташування» у формах створення/редагування | `components/LocationPicker/*`, підключення в `LocationForm`, `EditLocationForm` |
 | **Валерій** | спільна карта на leaflet + заміна iframe на сторінці деталей | `components/MapView/*`, `components/LocationMap/*` |
 | **Назарій** | профіль: нумерована пагінація з `?page=`, 6 карток desktop / 4 tablet і mobile, кнопка «Редагувати профіль» | `components/UserLocations/*`, кнопка в `ProfileInfo` |
-| **Крістіна** | модалка «Редагувати профіль» за макетом, відкриття з профілю | `components/EditProfileModal/*` |
+| **Олександр** | модалка «Редагувати профіль» за макетом, відкриття з профілю | `components/EditProfileModal/*` |
 | **Мирослава** | картка у своєму профілі за макетом (олівець), головна: «Всі локації», swiper loop | `components/PopularLocations/*`, `FeedbackSlider`, стилі `editLink` у `LocationCard` |
 | **Вікторія** | запити geocode + пошук місця | `lib/api/geocode.ts`, `components/LocationSearch/*` |
 | **Геннадій** | UI-компонент пагінації | `components/ui/Pagination/*` |
