@@ -6,9 +6,41 @@ import { useFormik } from 'formik';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
+import dynamic from 'next/dynamic';
 import { Button } from '@/components/ui/Button/Button';
 import { getCategories } from '@/lib/api/getCategories';
 import css from './LocationForm.module.css';
+
+type InteractiveLocationMapProps = {
+  addressValue: string;
+  latitudeValue: number | null;
+  longitudeValue: number | null;
+  onLocationChange: (address: string, lat: number | null, lon: number | null) => void;
+  inputError: boolean;
+};
+
+const InteractiveLocationMap = dynamic<InteractiveLocationMapProps>(
+  () => import('./LocationFormMap'),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        style={{
+          height: '350px',
+          backgroundColor: '#fff5f2',
+          borderRadius: '4px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#4a4a4a',
+          border: '1px solid #ddd',
+        }}
+      >
+        Завантаження карти...
+      </div>
+    ),
+  },
+);
 
 function classNames(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');
@@ -23,6 +55,9 @@ export type LocationFormValues = {
   description: string;
   image: File | null;
   region: string;
+  address: string;         
+  latitude: number | null;   
+  longitude: number | null;  
 };
 
 const MAX_IMAGE_SIZE = 1024 * 1024;
@@ -34,6 +69,9 @@ const emptyLocationFormValues: LocationFormValues = {
   description: '',
   image: null,
   region: '',
+  address: '',             
+  latitude: null,          
+  longitude: null,          
 };
 
 export type LocationFormProps = {
@@ -86,7 +124,7 @@ export function LocationForm({
       Yup.object({
         name: Yup.string()
           .trim()
-          .min(3, 'Назва має містити щонайменше 3 символи')
+          .min(3, 'Назва має містити щонайменше 3 symbols')
           .max(96, 'Назва має містити не більше 96 символів')
           .required('Введіть назву місця'),
         locationType: Yup.string()
@@ -107,6 +145,9 @@ export function LocationForm({
           .min(20, 'Опис має містити щонайменше 20 символів')
           .max(6000, 'Опис має містити не більше 6000 символів')
           .required('Детальний опис локації'),
+        address: Yup.string()
+          .trim()
+          .required('Будь ласка, оберіть розташування на карті або скористайтеся пошуком'), // <- Валидация адреса
         image: Yup.mixed<File>()
           .nullable()
           .test(
@@ -297,7 +338,7 @@ export function LocationForm({
           />
         </div>
 
-        <input
+                <input
           id="location-image"
           name="image"
           type="file"
@@ -398,7 +439,28 @@ export function LocationForm({
             <p className={css.error}>{String(getError('description'))}</p>
           )}
         </div>
+
+        <div className={css.mapSectionWrapper}>
+          <InteractiveLocationMap
+            addressValue={formik.values.address}
+            latitudeValue={formik.values.latitude}
+            longitudeValue={formik.values.longitude}
+            onLocationChange={(address, lat, lon) => {
+              void formik.setFieldValue('address', address, true);
+              void formik.setFieldValue('latitude', lat, true);
+              void formik.setFieldValue('longitude', lon, true);
+              void formik.setFieldTouched('address', true, false);
+            }}
+            inputError={Boolean(getError('address'))}
+          />
+          {getError('address') && (
+            <p className={css.error} style={{ marginTop: '4px' }}>
+              {String(getError('address'))}
+            </p>
+          )}
+        </div>
       </div>
+
       <div className={css.formActions}>
         <Button
           type="submit"

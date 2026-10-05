@@ -122,7 +122,6 @@
   width: 100%;
   margin-top: 24px;
   box-sizing: border-box;
-  
   flex-direction: column-reverse; 
   gap: 12px;
 }
@@ -191,3 +190,133 @@
   }
 }
 
+.mapSectionWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin-bottom: 24px; 
+}
+
+.mapInnerWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mapSearchBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mapSearchRow {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mapSearchInput {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: #ffe5d9;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.mapSearchInput::placeholder {
+  color: #bfaaa0;
+}
+
+.mapSearchInput:focus {
+  border-color: #e5beae;
+  background-color: #ffffff;
+}
+
+.mapSearchInput.mapInputError {
+  border-color: #e53e3e;
+  background-color: #fff5f5;
+}
+
+.mapSearchBtnBlock {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%; 
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  background-color: #fbeee6;
+  color: #5c4d4c;
+  border: 1px solid #f3dec2;
+}
+
+.mapSearchBtnBlock:hover {
+  background-color: #eae0d9;
+}
+
+.mapContainer {
+  height: 320px;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+}
+
+.mapContainer [class*="leaflet-control-attribution"] {
+  display: none !important;
+}
+
+@media (min-width: 768px) {
+  .locationForm {
+    max-width: 1091px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: transparent; 
+  }
+
+  .fieldsGrid {
+    width: 100%;
+  }
+
+  .mapSearchRow {
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+    max-width: 452px;
+    width: 100%;
+  }
+
+  .mapSearchInput {
+    max-width: 320px;
+  }
+
+  .mapSearchBtnBlock {
+    width: auto;
+    min-width: 120px;
+    height: 43px; 
+  }
+
+  .mapContainer {
+    width: 864px !important;
+    max-width: 100% !important;
+    height: 485px !important; 
+  }
+}
