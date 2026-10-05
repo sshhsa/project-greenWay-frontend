@@ -16,8 +16,8 @@ import css from './UserLocations.module.css';
 
 type Props = { userId?: string; isOwnProfile?: boolean };
 
-const SMALL_PAGE_SIZE = 6;
-const DESKTOP_PAGE_SIZE = 9;
+const SMALL_PAGE_SIZE = 4;
+const DESKTOP_PAGE_SIZE = 6;
 
 export default function UserLocations({ userId, isOwnProfile }: Props) {
   const pathname = usePathname();
