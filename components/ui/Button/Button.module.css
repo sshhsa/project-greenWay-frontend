@@ -25,39 +25,39 @@
 }
 
 .primary {
-  background-color: var(--color-coral-dark);
+  background-color: var(--color-accent);
   color: var(--color-white);
 }
 
 .primary:hover,
 .primary:focus-visible {
-  background-color: var(--color-coral-lighter);
-  border-color: var(--color-coral-dark);
-  color: var(--color-coral-darkest);
+  background-color: var(--color-accent-lighter);
+  border-color: var(--color-accent);
+  color: var(--color-accent-darker);
 }
 
 .primary:active {
-  background-color: var(--color-coral-dark);
+  background-color: var(--color-accent);
   border-color: transparent;
   color: var(--color-white);
   transform: scale(0.97);
 }
 
 .secondary {
-  background-color: rgba(0, 0, 0, 0.05);
-  color: var(--color-coral-darkest);
-  border-color: rgba(0, 0, 0, 0.15);
+  background-color: var(--color-overlay-5);
+  color: var(--color-accent-darker);
+  border-color: var(--color-border);
 }
 
 .secondary:hover,
 .secondary:focus-visible {
-  background-color: var(--color-coral-dark);
+  background-color: var(--color-accent);
   border-color: transparent;
   color: var(--color-white);
 }
 
 .secondary:active {
-  background-color: var(--color-green-dark);
+  background-color: var(--color-accent-darker);
   transform: scale(0.97);
 }
 

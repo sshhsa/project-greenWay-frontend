@@ -4,9 +4,6 @@ import { useEffect, useState } from 'react';
 import L from 'leaflet';
 import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import markerImage from 'leaflet/dist/images/marker-icon.png';
-import markerRetinaImage from 'leaflet/dist/images/marker-icon-2x.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import type { Coordinates } from '@/types/geocode';
 import { isValidCoordinates } from './coordinates';
 import css from './MapView.module.css';
@@ -17,9 +14,10 @@ type Props = {
 };
 
 const markerIcon = L.icon({
-  iconUrl: markerImage.src,
-  iconRetinaUrl: markerRetinaImage.src,
-  shadowUrl: markerShadow.src,
+  // статичні файли з public/leaflet: імпорт png з node_modules у прод-збірці дає undefined у .src
+  iconUrl: '/leaflet/marker-icon.png',
+  iconRetinaUrl: '/leaflet/marker-icon-2x.png',
+  shadowUrl: '/leaflet/marker-shadow.png',
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   shadowSize: [41, 41],
