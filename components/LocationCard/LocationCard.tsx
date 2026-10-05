@@ -15,10 +15,7 @@ type Props = {
   showEdit?: boolean;
 };
 
-export default function LocationCard({
-  location,
-  showEdit = false,
-}: Props) {
+export default function LocationCard({ location, showEdit = false }: Props) {
   return (
     <article className={css.locationCard}>
       <div className={css.imageWrapper}>
@@ -33,20 +30,19 @@ export default function LocationCard({
 
       <div className={css.content}>
         <div className={css.info}>
-  <p className={css.locationType}>{location.locationType}</p>
+          <p className={css.locationType}>{location.locationType}</p>
 
-  <div className={css.rating}>
-    <StarRating value={location.rate} />
-  </div>
-</div>
+          <div className={css.rating}>
+            <StarRating value={location.rate} />
+          </div>
+        </div>
 
-        <h3 className={css.title}>{location.name}</h3>
+        <h3 className={css.title} title={location.name}>
+          {location.name}
+        </h3>
 
         <div className={css.actions}>
-          <Link
-            href={`/locations/${location._id}`}
-            className={css.viewLink}
-          >
+          <Link href={`/locations/${location._id}`} className={css.viewLink}>
             Переглянути локацію
           </Link>
 
@@ -56,12 +52,7 @@ export default function LocationCard({
               className={css.editLink}
               aria-label={`Редагувати ${location.name}`}
             >
-              <svg
-                className={css.editIcon}
-                width="24"
-                height="24"
-                aria-hidden="true"
-              >
+              <svg className={css.editIcon} width="24" height="24" aria-hidden="true">
                 <use href="/sprite.svg#icon-edit" />
               </svg>
             </Link>
