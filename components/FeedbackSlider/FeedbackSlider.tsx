@@ -26,13 +26,16 @@ export default function FeedbackSlider({ feedbacks }: Props) {
           prevEl: `.${css.prevButton}`,
           nextEl: `.${css.nextButton}`,
         }}
-        slidesPerView="auto"
+        slidesPerView={1}
+        slidesPerGroup={1}
         spaceBetween={16}
         breakpoints={{
           768: {
+            slidesPerView: 2,
             spaceBetween: 24,
           },
           1440: {
+            slidesPerView: 3,
             spaceBetween: 24,
           },
         }}

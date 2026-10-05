@@ -1,53 +1,20 @@
 .swiper {
   width: 100%;
-  margin: var(--space-10) auto;
+  margin-top: var(--space-10);
 }
 
 .slide {
-  width: 100%;
   height: auto;
   display: flex;
 }
 
-/* mobile adaptive */
-@media (min-width: 375px) and (max-width: 767px) {
-  .swiper {
-    width: 335px;
-  }
-
-  .slide {
-    width: 335px;
-  }
-}
-
-/* tablet: 2 × 340px + 24px gap */
-@media (min-width: 768px) and (max-width: 1439px) {
-  .swiper {
-    width: 704px;
-  }
-
-  .slide {
-    width: 340px;
-  }
-}
-
-/* desktop: 3 × 421px + 2 × 24px gap */
-@media (min-width: 1440px) {
-  .swiper {
-    width: 1311px;
-  }
-
-  .slide {
-    width: 421px;
-  }
-}
-
 .controls {
+  width: 100%;
+  margin-top: var(--space-6);
+
   display: flex;
   justify-content: flex-end;
   gap: var(--space-2);
-
-  margin-top: var(--space-6);
 }
 
 .prevButton,
