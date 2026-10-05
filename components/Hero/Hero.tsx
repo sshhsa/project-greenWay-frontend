@@ -32,7 +32,6 @@ export default function Hero() {
         loop 
         playsInline 
         preload="auto"
-        poster="/Hero.jpg" 
         className={css.bgImage}
       >
         <source src="/Hero-video.mp4" type="video/mp4" />

@@ -25,7 +25,8 @@ export const logout = async () => {
   }
 };
 
-export const getMe = async () => {
-  const { data } = await nextServer.get<SingleResponse<User>>('/users/me');
+// null — гість або сесія протухла (route handler відповідає 200 { data: null })
+export const getMe = async (): Promise<User | null> => {
+  const { data } = await nextServer.get<SingleResponse<User | null>>('/users/me');
   return data.data;
 };

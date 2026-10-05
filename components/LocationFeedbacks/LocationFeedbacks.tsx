@@ -5,7 +5,6 @@ import { useQuery } from '@tanstack/react-query';
 import FeedbackSlider from '../FeedbackSlider/FeedbackSlider';
 import css from './LocationFeedbacks.module.css';
 import { getLocationById } from '@/lib/api/getLocationById';
-import Loader from '../ui/Loader/Loader';
 import { Feedback } from '@/types/feedback';
 import { Button } from '../ui/Button/Button';
 
@@ -17,8 +16,9 @@ export default function LocationFeedbacks({ locationId }: Props) {
     queryFn: () => getLocationById(locationId),
   });
 
+  // той самий запит, що й у LocationDetails — лоадер показує вже він, тут не дублюємо
   if (!location) {
-    return isError ? <p>Не вдалося завантажити відгуки</p> : <Loader />;
+    return isError ? <p>Не вдалося завантажити відгуки</p> : null;
   }
 
   const feedback = location.feedbacksId as Feedback[];
