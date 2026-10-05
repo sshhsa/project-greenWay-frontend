@@ -2,7 +2,8 @@
 // Власник: TBD (див. docs/FRONTEND_TASKS.md)
 // Модалка для гостя: дія потребує авторизації → «Увійти» (/sign-in) / «Зареєструватись» (/sign-up).
 // Рендериться умовно батьком: {isAuthPromptOpen && <AuthPromptModal onClose={...} />}.
-// Закривається: хрестик, backdrop, Escape, перехід за посиланням.
+// Закривається: хрестик, backdrop, Escape. Посилання onClose не викликають: перехід сам розмонтовує модалку,
+// а onClose в intercepted-роуті (/locations/:id/feedback) = router.back() і перебиває навігацію.
 
 import { useEffect, useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
@@ -100,10 +101,10 @@ export default function AuthPromptModal({ onClose, message = DEFAULT_MESSAGE }: 
         </p>
 
         <div className={css.actions}>
-          <Link ref={signInRef} className={css.signIn} href="/sign-in" onClick={onClose}>
+          <Link ref={signInRef} className={css.signIn} href="/sign-in">
             Увійти
           </Link>
-          <Link className={css.signUp} href="/sign-up" onClick={onClose}>
+          <Link className={css.signUp} href="/sign-up">
             Зареєструватись
           </Link>
         </div>
