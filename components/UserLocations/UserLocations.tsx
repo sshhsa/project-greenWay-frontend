@@ -1,8 +1,10 @@
 'use client';
 
-import css from './UserLocations.module.css';
 import { useEffect, useRef, useState } from 'react';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { isAxiosError } from 'axios';
+import { usePathname, useSearchParams } from 'next/navigation';
+
 import { getUserLocations } from '@/lib/api/getUserLocations';
 import { useAuthStore } from '@/lib/store/authStore';
 import Loader from '@/components/ui/Loader/Loader';
@@ -10,12 +12,16 @@ import LocationCard from '@/components/LocationCard/LocationCard';
 import { getCategories } from '@/lib/api/getCategories';
 import EmptyLocations from '../EmptyLocations/EmptyLocations';
 
+import css from './UserLocations.module.css';
+
 type Props = { userId?: string; isOwnProfile?: boolean };
 
 const SMALL_PAGE_SIZE = 6;
 const DESKTOP_PAGE_SIZE = 9;
 
 export default function UserLocations({ userId, isOwnProfile }: Props) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [pageSize, setPageSize] = useState<number | null>(null);
   const newPageStart = useRef<number | null>(null);
   const firstNewItem = useRef<HTMLLIElement | null>(null);
@@ -24,6 +30,8 @@ export default function UserLocations({ userId, isOwnProfile }: Props) {
 
   const targetUserId = isOwnProfile ? currentUserId : userId;
   const limit = pageSize ?? SMALL_PAGE_SIZE;
+  const pageFromUrl = Number(searchParams.get('page') ?? 1);
+  const initialPage = Number.isInteger(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1;
 
   useEffect(() => {
     const desktop = window.matchMedia('(min-width: 1440px)');
@@ -58,9 +66,9 @@ export default function UserLocations({ userId, isOwnProfile }: Props) {
     isPending,
     refetch,
   } = useInfiniteQuery({
-    queryKey: ['userLocations', targetUserId, limit],
+    queryKey: ['userLocations', targetUserId, limit, initialPage],
     enabled: pageSize !== null && Boolean(targetUserId),
-    initialPageParam: 1,
+    initialPageParam: initialPage,
 
     queryFn: ({ pageParam }) => {
       if (!targetUserId) {
@@ -74,7 +82,10 @@ export default function UserLocations({ userId, isOwnProfile }: Props) {
       lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined,
   });
 
+  const firstPage = data?.pages[0];
   const items = data?.pages.flatMap((page) => page.items) ?? [];
+  const hasNoLocations = firstPage?.totalItems === 0;
+  const hasEmptyRequestedPage = firstPage !== undefined && items.length === 0 && !hasNoLocations;
   const typeNames = new Map(
     categories?.locationTypes.map((type) => [type.slug, type.type]) ?? [],
   );
@@ -95,8 +106,26 @@ export default function UserLocations({ userId, isOwnProfile }: Props) {
     void fetchNextPage();
   }
 
+  const userIsNotFound = isAxiosError(error) && error.response?.status === 404;
+
   if (isPending) {
-    return <Loader />;
+    return (
+      <section className={css.userLocations}>
+        <Loader />
+      </section>
+    );
+  }
+
+  if (userIsNotFound) {
+    return (
+      <section className={css.userLocations}>
+        <EmptyLocations
+          title="Користувача не знайдено"
+          linkText="Назад до локацій"
+          link="/locations"
+        />
+      </section>
+    );
   }
 
   if (error && items.length === 0) {
@@ -112,7 +141,19 @@ export default function UserLocations({ userId, isOwnProfile }: Props) {
     );
   }
 
-  if (items.length === 0) {
+  if (hasEmptyRequestedPage) {
+    return (
+      <section className={css.userLocations}>
+        <EmptyLocations
+          title="На цій сторінці локацій немає"
+          linkText="Перейти на першу сторінку"
+          link={`${pathname}?page=1`}
+        />
+      </section>
+    );
+  }
+
+  if (hasNoLocations) {
     return (
       <section className={css.userLocations}>
         <EmptyLocations
