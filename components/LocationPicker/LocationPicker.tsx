@@ -1,11 +1,8 @@
 'use client';
-// Власник: Анна (extra, див. docs/FRONTEND_TASKS.md)
-// Блок «Місце розташування» у LocationForm і EditLocationForm:
-// LocationSearch (вибір результату) + MapView з onPick (клік по карті → reversePlace).
-// value/onChange — координати; форма додає їх у FormData як JSON-рядок: coordinates={"lat":..,"lon":..}
+import type { Coordinates, GeoPlace } from '@/types/geocode';
 
-import type { Coordinates } from '@/types/geocode';
-
+import LocationSearch from '../LocationSearch/LocationSearch';
+import MapView from '../MapView/MapView';
 import css from './LocationPicker.module.css';
 
 type Props = {
@@ -13,6 +10,15 @@ type Props = {
   onChange: (coordinates: Coordinates) => void;
 };
 
-export default function LocationPicker(_props: Props) {
-  return <div className={css.locationPicker}>LocationPicker</div>;
+export default function LocationPicker({ value, onChange }: Props) {
+  const handleSelect = (place: GeoPlace) => {
+    onChange({ lat: place.lat, lon: place.lon });
+  };
+
+  return (
+    <div className={css.locationPicker}>
+      <LocationSearch onSelect={handleSelect} />
+      <MapView coordinates={value} onPick={onChange} />
+    </div>
+  );
 }

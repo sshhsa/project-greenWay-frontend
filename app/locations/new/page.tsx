@@ -18,6 +18,9 @@ export default function NewLocationPage() {
       formData.append('locationType', values.locationType);
       formData.append('region', values.region);
       formData.append('description', values.description.trim());
+      if (values.coordinates) {
+        formData.append('coordinates', JSON.stringify(values.coordinates));
+      }
 
       if (values.image) {
         formData.append('image', values.image);
