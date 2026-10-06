@@ -1,7 +1,4 @@
 'use client';
-// Власник: Маркіян · extra-доробка за макетом: Олександр (див. docs/FRONTEND_TASKS.md)
-// Модалка редагування профілю (додаткове завдання): аватар + ім'я → PATCH /api/users/me.
-// Відкривається кліком по аватару/імені в Header. Закривається: хрестик, «Відмінити», backdrop, Escape.
 
 import { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -230,7 +227,7 @@ export default function EditProfileModal({ user, onClose }: Props) {
                     type="text"
                     placeholder="Введіть нове імʼя"
                     autoComplete="name"
-                    maxLength={64}
+                    maxLength={32}
                     disabled={isPending}
                     aria-invalid={Boolean(touched.name && errors.name)}
                   />

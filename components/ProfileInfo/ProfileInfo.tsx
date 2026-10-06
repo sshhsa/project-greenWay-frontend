@@ -6,6 +6,7 @@ import { getUserById } from '@/lib/api/getUserById';
 import { useAuthStore } from '@/lib/store/authStore';
 import type { User } from '@/types/user';
 import EditProfileModal from '@/components/EditProfileModal/EditProfileModal';
+import Image from 'next/image';
 
 import css from './ProfileInfo.module.css';
 
@@ -47,9 +48,17 @@ export default function ProfileInfo({ userId }: ProfileInfoProps) {
   return (
     <div className={css.profileWrapper}>
       {user.avatarUrl ? (
-        <img className={css.avatar} src={user.avatarUrl} alt={user.name} />
+        <Image
+          className={css.avatar}
+          src={user.avatarUrl}
+          alt={user.name}
+          width={145}
+          height={145}
+        />
       ) : (
-        <div className={css.avatar}>{firstLetter}</div>
+        <div className={`${css.avatar} ${css.avatarFallback}`} aria-hidden="true">
+          {firstLetter}
+        </div>
       )}
 
       <div className={css.userInfo}>
