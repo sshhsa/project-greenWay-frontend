@@ -1,13 +1,28 @@
 // Власник: Вікторія (extra, див. docs/FRONTEND_TASKS.md)
-// Запити до /api/geocode через nextServer. Бекенд відповідає { data: GeoPlace[] } і { data: GeoPlace }.
-// TODO: реалізувати обидві функції (nextServer.get + params), прибрати заглушки
-
+// Запити до /api/geocode через nextServer (baseURL уже '/api').
+import { nextServer } from './client';
 import type { GeoPlace } from '@/types/geocode';
 
-export const searchPlaces = async (_query: string): Promise<GeoPlace[]> => {
-  return [];
+export const searchPlaces = async (query: string): Promise<GeoPlace[]> => {
+  if (!query.trim()) return [];
+
+  try {
+    const { data } = await nextServer.get<{ data: GeoPlace[] }>('/geocode/search', {
+      params: { q: query.trim() },
+    });
+    return data.data;
+  } catch {
+    throw new Error('Не вдалося знайти місце. Спробуйте пізніше.');
+  }
 };
 
 export const reversePlace = async (lat: number, lon: number): Promise<GeoPlace> => {
-  return { name: '', lat, lon };
+  try {
+    const { data } = await nextServer.get<{ data: GeoPlace }>('/geocode/reverse', {
+      params: { lat, lon },
+    });
+    return data.data;
+  } catch {
+    throw new Error('Не вдалося визначити адресу за координатами.');
+  }
 };
