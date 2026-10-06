@@ -1,2 +1,86 @@
 .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+}
+
+.list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.pageButton,
+.arrow {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-brown);
+    transition:
+        background-color var(--transition),
+        border-color var(--transition);
+}
+
+.pageButton {
+    font-size: var(--fs-text-large);
+    font-weight: var(--fw-medium);
+    background-color: var(--color-overlay-5);
+}
+
+.arrow {
+    background-color: var(--color-accent-lighter);
+}
+
+.arrowIcon {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+.pageButton:hover,
+.pageButton:focus-visible,
+.arrow:hover:not(:disabled),
+.arrow:focus-visible {
+    border-color: var(--color-accent);
+}
+
+.active,
+.active:hover {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-lighter);
+    cursor: default;
+}
+
+.arrow:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.dots {
+    min-width: var(--space-4);
+    font-size: var(--fs-text-large);
+    color: var(--color-text-brown);
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+
+    .pagination,
+    .list {
+        gap: var(--space-3);
+    }
+
+    .pageButton,
+    .arrow {
+        width: 48px;
+        height: 48px;
+    }
+
+    .pageButton {
+        font-size: var(--fs-h5);
+    }
 }
