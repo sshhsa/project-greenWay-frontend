@@ -17,13 +17,6 @@
   text-align: center;
 }
 
-.moreWrap {
-  display: flex;
-  justify-content: center;
-  margin-top: var(--space-8);
-}
-
-.moreButton,
 .retryButton {
   padding: var(--radius-sm) var(--radius-lg);
   border-radius: var(--radius-md);
@@ -33,29 +26,20 @@
   transition: background-color var(--transition);
 }
 
-.moreButton:hover:not(:disabled),
 .retryButton:hover {
   background: var(--color-accent-darker);
 }
 
-.moreButton:disabled {
-  cursor: wait;
+.paginationWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-10);
 }
 
 .error {
   margin-top: var(--page-padding);
   color: var(--color-error);
   text-align: center;
-}
-
-.updating {
-  position: fixed;
-  inset-inline-end: var(--page-padding);
-  inset-block-end: var(--page-padding);
-  padding: var(--page-padding);
-  border-radius: var(--radius-md);
-  background: var(--color-bg-soft);
-  box-shadow: 0 0 var(--radius-md) var(--color-overlay-5);
 }
 
 .addLocation {
