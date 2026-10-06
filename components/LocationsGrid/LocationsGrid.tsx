@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 import LocationCard from '@/components/LocationCard/LocationCard';
+import { Button } from '@/components/ui/Button/Button';
 import Loader from '@/components/ui/Loader/Loader';
 import { getCategories } from '@/lib/api/getCategories';
 import { getLocations } from '@/lib/api/getLocations';
@@ -183,8 +184,9 @@ export default function LocationsGrid() {
 
       {hasNextPage && (
         <div className={css.moreWrap}>
-          <button
+          <Button
             className={css.moreButton}
+            variant="primary"
             type="button"
             onClick={showMore}
             disabled={isFetchingNextPage}
@@ -192,7 +194,7 @@ export default function LocationsGrid() {
             {isFetchingNextPage
               ? 'Завантажуємо…'
               : 'Показати ще'}
-          </button>
+          </Button>
         </div>
       )}
 

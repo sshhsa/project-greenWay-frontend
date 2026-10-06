@@ -24,7 +24,10 @@
   margin-top: var(--space-8);
 }
 
-.moreButton,
+.moreButton {
+  padding: var(--radius-sm) var(--radius-lg);
+}
+
 .retryButton {
   padding: var(--radius-sm) var(--radius-lg);
   border-radius: var(--radius-md);
@@ -34,13 +37,8 @@
   transition: background-color var(--transition);
 }
 
-.moreButton:hover:not(:disabled),
 .retryButton:hover {
   background: var(--color-accent-darker);
-}
-
-.moreButton:disabled {
-  cursor: wait;
 }
 
 .error {
