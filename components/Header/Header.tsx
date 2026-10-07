@@ -45,7 +45,7 @@ export default function Header() {
           </Link>
 
           <nav className={css.desktopNav} aria-label="Головна навігація">
-            {!isAuthenticated && <Link className={css.navLink} href="/">Головна</Link>}
+            <Link className={css.navLink} href="/">Головна</Link>
             <Link className={css.navLink} href="/locations">Місця відпочинку</Link>
             {isAuthenticated && (
               <>
@@ -57,7 +57,13 @@ export default function Header() {
 
           <div className={css.desktopActions}>
             {isAuthenticated && user ? (
-              <UserBar user={user} onLogout={openLogout} onEditProfile={openEditProfile} />
+              <>
+                {/* tablet: за макетом кнопка публікації поруч із бургером, юзер — у меню */}
+                <Link className={css.tabletShare} href="/locations/new">Опублікувати статтю</Link>
+                <div className={css.desktopUser}>
+                  <UserBar user={user} onLogout={openLogout} onEditProfile={openEditProfile} />
+                </div>
+              </>
             ) : (
               <>
                 <Link className={css.loginLink} href="/sign-in">Вхід</Link>

@@ -47,27 +47,45 @@ export default function MobileMenu({ id, isAuthenticated, user, onClose, onLogou
     <div className={css.mobileMenu} id={id}>
       <div className={css.topRow}>
         <Link className={css.logo} href="/" onClick={onClose}>Relax Map</Link>
-        <button ref={closeButtonRef} className={css.closeButton} type="button" onClick={onClose} aria-label="Закрити меню">×</button>
+
+        <div className={css.topActions}>
+          {/* tablet: дії у верхньому рядку, як у хедері; mobile — внизу меню */}
+          {isAuthenticated ? (
+            <Link className={`${css.shareLink} ${css.tabletOnly}`} href="/locations/new" onClick={onClose}>
+              Опублікувати статтю
+            </Link>
+          ) : (
+            <>
+              <Link className={`${css.loginLink} ${css.tabletOnly}`} href="/sign-in" onClick={onClose}>Вхід</Link>
+              <Link className={`${css.registerLink} ${css.tabletOnly}`} href="/sign-up" onClick={onClose}>Реєстрація</Link>
+            </>
+          )}
+          <button ref={closeButtonRef} className={css.closeButton} type="button" onClick={onClose} aria-label="Закрити меню">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       <nav className={css.nav} aria-label="Мобільна навігація">
-        {!isAuthenticated && <Link className={css.navLink} href="/" onClick={onClose}>Головна</Link>}
+        <Link className={css.navLink} href="/" onClick={onClose}>Головна</Link>
         <Link className={css.navLink} href="/locations" onClick={onClose}>Місця відпочинку</Link>
-        {isAuthenticated && (
-          <>
-            <Link className={css.navLink} href="/profile" onClick={onClose}>Мій профіль</Link>
-            <Link className={css.shareLink} href="/locations/new" onClick={onClose}>Поділитись локацією</Link>
-          </>
-        )}
+        {isAuthenticated && <Link className={css.navLink} href="/profile" onClick={onClose}>Мій профіль</Link>}
       </nav>
 
       <div className={css.actions}>
         {isAuthenticated && user ? (
-          <UserBar user={user} onLogout={onLogout} onEditProfile={onEditProfile} />
+          <>
+            <Link className={`${css.shareLink} ${css.mobileOnly}`} href="/locations/new" onClick={onClose}>
+              Опублікувати статтю
+            </Link>
+            <UserBar user={user} onLogout={onLogout} onEditProfile={onEditProfile} />
+          </>
         ) : (
           <>
-            <Link className={css.loginLink} href="/sign-in" onClick={onClose}>Вхід</Link>
-            <Link className={css.registerLink} href="/sign-up" onClick={onClose}>Реєстрація</Link>
+            <Link className={`${css.loginLink} ${css.mobileOnly}`} href="/sign-in" onClick={onClose}>Вхід</Link>
+            <Link className={`${css.registerLink} ${css.mobileOnly}`} href="/sign-up" onClick={onClose}>Реєстрація</Link>
           </>
         )}
       </div>

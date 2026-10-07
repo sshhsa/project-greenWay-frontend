@@ -1,8 +1,7 @@
 .header {
   position: relative;
   z-index: 20;
-  background: var(--color-bg);
-  border-bottom: var(--border-width) solid var(--color-border);
+  background: var(--color-bg-soft);
 }
 
 .inner {
@@ -138,11 +137,6 @@
 }
 
 @media (min-width: 768px) {
-  .header {
-    background: var(--color-bg-soft);
-    border-bottom: 0;
-  }
-
   .inner {
     min-height: 72px;
   }
@@ -174,6 +168,26 @@
 
   .registerLink {
     border-color: var(--color-accent);
+  }
+
+  .tabletShare {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-sm);
+    background: var(--color-accent);
+    color: var(--color-white);
+    white-space: nowrap;
+    font-size: var(--fs-text-regular);
+  }
+
+  .tabletShare:hover {
+    background: var(--color-accent-darker);
+  }
+
+  .desktopUser {
+    display: none;
   }
 
   .menuButton {
@@ -227,7 +241,12 @@
     line-height: var(--lh-text);
   }
 
-  .menuButton {
+  .menuButton,
+  .tabletShare {
     display: none;
+  }
+
+  .desktopUser {
+    display: flex;
   }
 }
