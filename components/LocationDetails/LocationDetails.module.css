@@ -10,6 +10,9 @@
 }
 
 .container {
+  width: 100%;
+  max-width: var(--container-large);
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: var(--space-8); /*===має бути 33px===*/

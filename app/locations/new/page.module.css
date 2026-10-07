@@ -13,9 +13,9 @@
   flex-direction: column; 
   align-items: flex-start; 
   gap: var(--space-4);           
-  padding: var(--space-6) var(--space-4); 
-  box-sizing: border-box; 
-  margin: 0; 
+  padding: var(--space-6) var(--page-padding);
+  box-sizing: border-box;
+  margin: 0 auto;
 } 
 
 .title { 

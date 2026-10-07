@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useQueryClient } from '@tanstack/react-query';
 
 import Modal from '../Modal/Modal';
 import StarRating from '../StarRating/StarRating';
@@ -13,6 +14,7 @@ type Props = {
 };
 
 export default function AddFeedbackModal({ locationId, onClose }: Props) {
+  const queryClient = useQueryClient();
   const [description, setDescription] = useState('');
   const [rating, setRating] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -48,6 +50,8 @@ export default function AddFeedbackModal({ locationId, onClose }: Props) {
         throw new Error(payload?.message ?? 'Не вдалося надіслати відгук.');
       }
 
+      // оновлюємо відгуки і рейтинг на сторінці локації (той самий запит у LocationDetails і LocationFeedbacks)
+      await queryClient.invalidateQueries({ queryKey: ['location', locationId] });
       toast.success('Відгук відправлено', {
         style: {
           background: 'var(--color-accent)',

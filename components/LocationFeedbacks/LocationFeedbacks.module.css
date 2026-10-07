@@ -1,7 +1,12 @@
 /* Власник: Христина */
 .locationFeedbacks {
-            padding: var(--section-padding-large) var(--page-padding) ;
-            background-color: var(--color-bg-soft); 
+  padding: var(--section-padding-large) var(--page-padding);
+  background-color: var(--color-bg-soft);
+}
+
+.locationFeedbacks > * {
+  max-width: var(--container-large);
+  margin-inline: auto;
 }
 
 .titleButtonBlock{
