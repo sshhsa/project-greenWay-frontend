@@ -7,7 +7,10 @@
 
 import { useEffect, useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { m } from 'motion/react';
 import Link from 'next/link';
+
+import { backdropMotion, dialogMotion } from '@/lib/motion';
 
 import css from './AuthPromptModal.module.css';
 
@@ -63,8 +66,9 @@ export default function AuthPromptModal({ onClose, message = DEFAULT_MESSAGE }: 
   }, []);
 
   return createPortal(
-    <div className={css.backdrop} role="presentation" onMouseDown={onClose}>
-      <div
+    <m.div {...backdropMotion} className={css.backdrop} role="presentation" onMouseDown={onClose}>
+      <m.div
+        {...dialogMotion}
         ref={modalRef}
         className={css.modal}
         role="dialog"
@@ -108,8 +112,8 @@ export default function AuthPromptModal({ onClose, message = DEFAULT_MESSAGE }: 
             Зареєструватись
           </Link>
         </div>
-      </div>
-    </div>,
+      </m.div>
+    </m.div>,
     document.body,
   );
 }

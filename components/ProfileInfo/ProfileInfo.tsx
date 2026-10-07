@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { getUserById } from '@/lib/api/getUserById';
 import { useAuthStore } from '@/lib/store/authStore';
 import type { User } from '@/types/user';
+import { AnimatePresence } from 'motion/react';
 import EditProfileModal from '@/components/EditProfileModal/EditProfileModal';
 import Image from 'next/image';
 
@@ -74,9 +75,11 @@ export default function ProfileInfo({ userId }: ProfileInfoProps) {
           </button>
         )}
       </div>
-      {isEditOpen && (
-        <EditProfileModal user={user} onClose={() => setIsEditOpen(false)} />
-      )}
+      <AnimatePresence>
+        {isEditOpen && (
+          <EditProfileModal user={user} onClose={() => setIsEditOpen(false)} />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

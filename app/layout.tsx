@@ -7,6 +7,7 @@ import './globals.css';
 
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 import AuthProvider from '@/components/AuthProvider/AuthProvider';
+import MotionProvider from '@/components/MotionProvider/MotionProvider';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 
@@ -30,6 +31,7 @@ export default function RootLayout({
     <html lang="uk" className={montserrat.variable} suppressHydrationWarning>
       <body>
         <TanStackProvider>
+          <MotionProvider>
           <AuthProvider>
             <Header />
             <main>{children}</main>
@@ -64,6 +66,7 @@ export default function RootLayout({
               }}
             />
           </AuthProvider>
+          </MotionProvider>
         </TanStackProvider>
       </body>
     </html>

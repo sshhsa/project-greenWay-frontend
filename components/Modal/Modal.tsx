@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { m } from 'motion/react';
+
+import { backdropMotion, dialogMotion } from '@/lib/motion';
 import css from './Modal.module.css';
 
 type Props = {
@@ -37,7 +40,8 @@ export default function Modal({ children, onClose }: Props) {
   }
 
   return createPortal(
-    <div
+    <m.div
+      {...backdropMotion}
       className={css.backdrop}
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) {
@@ -45,7 +49,7 @@ export default function Modal({ children, onClose }: Props) {
         }
       }}
     >
-      <div className={css.modal}>
+      <m.div {...dialogMotion} className={css.modal}>
         <button
           type="button"
           className={css.closeButton}
@@ -56,8 +60,8 @@ export default function Modal({ children, onClose }: Props) {
         </button>
 
         {children}
-      </div>
-    </div>,
+      </m.div>
+    </m.div>,
     document.body,
   );
 }

@@ -10,6 +10,8 @@ import { getCategories } from '@/lib/api/getCategories';
 import { useAuthStore } from '@/lib/store/authStore';
 import Loader from '@/components/ui/Loader/Loader';
 import Pagination from '@/components/ui/Pagination/Pagination';
+import { m } from 'motion/react';
+import { staggerItem, staggerList } from '@/lib/motion';
 import LocationCard from '@/components/LocationCard/LocationCard';
 import EmptyLocations from '../EmptyLocations/EmptyLocations';
 
@@ -147,9 +149,9 @@ function UserLocationsContent({ userId, isOwnProfile }: Props) {
       aria-label="Локації користувача"
       aria-busy={isFetching}
     >
-      <ul className={css.grid}>
+      <m.ul className={css.grid} variants={staggerList} initial="hidden" animate="show">
         {items.map((location) => (
-          <li key={location._id}>
+          <m.li variants={staggerItem} key={location._id}>
             <LocationCard
               showEdit={isOwnProfile}
               location={{
@@ -158,9 +160,9 @@ function UserLocationsContent({ userId, isOwnProfile }: Props) {
                   typeNames.get(location.locationType) ?? location.locationType,
               }}
             />
-          </li>
+          </m.li>
         ))}
-      </ul>
+      </m.ul>
 
       <div className={css.paginationWrap}>
         <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />

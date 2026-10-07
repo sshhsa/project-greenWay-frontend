@@ -2,12 +2,15 @@
 
 import { useCallback, useRef, useState } from 'react';
 import Link from 'next/link';
+import { AnimatePresence, m } from 'motion/react';
 
 import MobileMenu from '@/components/MobileMenu/MobileMenu';
 import UserBar from '@/components/UserBar/UserBar';
 import ConfirmLogoutModal from '@/components/ConfirmLogoutModal/ConfirmLogoutModal';
 import EditProfileModal from '@/components/EditProfileModal/EditProfileModal';
 import { useAuthStore } from '@/lib/store/authStore';
+
+import { backdropMotion, dialogMotion } from '@/lib/motion';
 
 import css from './Header.module.css';
 
@@ -45,12 +48,20 @@ export default function Header() {
           </Link>
 
           <nav className={css.desktopNav} aria-label="Головна навігація">
-            <Link className={css.navLink} href="/">Головна</Link>
-            <Link className={css.navLink} href="/locations">Місця відпочинку</Link>
+            <Link className={css.navLink} href="/">
+              Головна
+            </Link>
+            <Link className={css.navLink} href="/locations">
+              Місця відпочинку
+            </Link>
             {isAuthenticated && (
               <>
-                <Link className={css.navLink} href="/profile">Мій профіль</Link>
-                <Link className={css.shareLink} href="/locations/new">Поділитись локацією</Link>
+                <Link className={css.navLink} href="/profile">
+                  Мій профіль
+                </Link>
+                <Link className={css.shareLink} href="/locations/new">
+                  Поділитись локацією
+                </Link>
               </>
             )}
           </nav>
@@ -59,15 +70,25 @@ export default function Header() {
             {isAuthenticated && user ? (
               <>
                 {/* tablet: за макетом кнопка публікації поруч із бургером, юзер — у меню */}
-                <Link className={css.tabletShare} href="/locations/new">Опублікувати статтю</Link>
+                <Link className={css.tabletShare} href="/locations/new">
+                  Опублікувати статтю
+                </Link>
                 <div className={css.desktopUser}>
-                  <UserBar user={user} onLogout={openLogout} onEditProfile={openEditProfile} />
+                  <UserBar
+                    user={user}
+                    onLogout={openLogout}
+                    onEditProfile={openEditProfile}
+                  />
                 </div>
               </>
             ) : (
               <>
-                <Link className={css.loginLink} href="/sign-in">Вхід</Link>
-                <Link className={css.registerLink} href="/sign-up">Реєстрація</Link>
+                <Link className={css.loginLink} href="/sign-in">
+                  Вхід
+                </Link>
+                <Link className={css.registerLink} href="/sign-up">
+                  Реєстрація
+                </Link>
               </>
             )}
           </div>
@@ -81,36 +102,66 @@ export default function Header() {
             aria-controls="mobile-navigation"
             onClick={() => setIsMenuOpen((open) => !open)}
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
               <path d="M3 6h18M3 12h18M3 18h18" />
             </svg>
           </button>
         </div>
       </header>
 
-      {isMenuOpen && (
-        <MobileMenu
-          id="mobile-navigation"
-          isAuthenticated={isAuthenticated}
-          user={user}
-          onClose={closeMenu}
-          onLogout={openLogout}
-          onEditProfile={openEditProfile}
-        />
-      )}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <MobileMenu
+            id="mobile-navigation"
+            isAuthenticated={isAuthenticated}
+            user={user}
+            onClose={closeMenu}
+            onLogout={openLogout}
+            onEditProfile={openEditProfile}
+          />
+        )}
 
-      {isEditProfileOpen && user && (
-        <EditProfileModal user={user} onClose={() => setIsEditProfileOpen(false)} />
-      )}
+        {isEditProfileOpen && user && (
+          <EditProfileModal user={user} onClose={() => setIsEditProfileOpen(false)} />
+        )}
 
-      {isLogoutOpen && (
-        <div className={css.logoutBackdrop} role="presentation" onMouseDown={() => setIsLogoutOpen(false)}>
-          <div className={css.logoutDialog} role="dialog" aria-modal="true" aria-label="Підтвердження виходу" onMouseDown={(event) => event.stopPropagation()}>
-            <button className={css.dialogClose} type="button" aria-label="Закрити підтвердження виходу" onClick={() => setIsLogoutOpen(false)}>×</button>
-            <ConfirmLogoutModal onClose={() => setIsLogoutOpen(false)} />
-          </div>
-        </div>
-      )}
+        {isLogoutOpen && (
+          <m.div
+            {...backdropMotion}
+            className={css.logoutBackdrop}
+            role="presentation"
+            onMouseDown={() => setIsLogoutOpen(false)}
+          >
+            <m.div
+              {...dialogMotion}
+              className={css.logoutDialog}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Підтвердження виходу"
+              onMouseDown={(event) => event.stopPropagation()}
+            >
+              <button
+                className={css.dialogClose}
+                type="button"
+                aria-label="Закрити підтвердження виходу"
+                onClick={() => setIsLogoutOpen(false)}
+              >
+                ×
+              </button>
+              <ConfirmLogoutModal onClose={() => setIsLogoutOpen(false)} />
+            </m.div>
+          </m.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

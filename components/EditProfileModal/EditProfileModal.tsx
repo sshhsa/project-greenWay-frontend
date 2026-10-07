@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { m } from 'motion/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
@@ -13,6 +14,8 @@ import toast from 'react-hot-toast';
 import { updateMe } from '@/lib/api/updateMe';
 import { useAuthStore } from '@/lib/store/authStore';
 import type { User } from '@/types/user';
+
+import { backdropMotion, dialogMotion } from '@/lib/motion';
 
 import css from './EditProfileModal.module.css';
 
@@ -121,8 +124,9 @@ export default function EditProfileModal({ user, onClose }: Props) {
   const avatarSrc = preview ?? (user.avatarUrl || null);
 
   return createPortal(
-    <div className={css.backdrop} role="presentation" onMouseDown={requestClose}>
-      <div
+    <m.div {...backdropMotion} className={css.backdrop} role="presentation" onMouseDown={requestClose}>
+      <m.div
+        {...dialogMotion}
         className={css.modal}
         role="dialog"
         aria-modal="true"
@@ -269,8 +273,8 @@ export default function EditProfileModal({ user, onClose }: Props) {
             );
           }}
         </Formik>
-      </div>
-    </div>,
+      </m.div>
+    </m.div>,
     document.body,
   );
 }

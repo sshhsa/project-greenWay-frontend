@@ -4,6 +4,8 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
+import { m } from 'motion/react';
+import { staggerItem, staggerList } from '@/lib/motion';
 import LocationCard from '@/components/LocationCard/LocationCard';
 import { Button } from '@/components/ui/Button/Button';
 import Loader from '@/components/ui/Loader/Loader';
@@ -17,10 +19,7 @@ import css from './LocationsGrid.module.css';
 const SMALL_PAGE_SIZE = 6;
 const DESKTOP_PAGE_SIZE = 9;
 
-function readQuery(
-  params: URLSearchParams,
-  limit: number,
-): Omit<LocationsQuery, 'page'> {
+function readQuery(params: URLSearchParams, limit: number): Omit<LocationsQuery, 'page'> {
   const sort = params.get('sort');
 
   return {
@@ -56,9 +55,7 @@ export default function LocationsGrid() {
     const updatePageSize = () => {
       newPageStart.current = null;
 
-      setPageSize(
-        desktop.matches ? DESKTOP_PAGE_SIZE : SMALL_PAGE_SIZE,
-      );
+      setPageSize(desktop.matches ? DESKTOP_PAGE_SIZE : SMALL_PAGE_SIZE);
     };
 
     updatePageSize();
@@ -91,25 +88,17 @@ export default function LocationsGrid() {
       }),
 
     getNextPageParam: (lastPage) =>
-      lastPage.page < lastPage.totalPages
-        ? lastPage.page + 1
-        : undefined,
+      lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined,
   });
 
   const items = data?.pages.flatMap((page) => page.items) ?? [];
 
   const typeNames = new Map(
-    categories?.locationTypes.map((type) => [
-      type.slug,
-      type.type,
-    ]) ?? [],
+    categories?.locationTypes.map((type) => [type.slug, type.type]) ?? [],
   );
 
   useEffect(() => {
-    if (
-      newPageStart.current !== null &&
-      items.length > newPageStart.current
-    ) {
+    if (newPageStart.current !== null && items.length > newPageStart.current) {
       firstNewItem.current?.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
@@ -133,11 +122,7 @@ export default function LocationsGrid() {
       <div className={css.status} role="alert">
         <p>Не вдалося завантажити місця.</p>
 
-        <button
-          className={css.retryButton}
-          type="button"
-          onClick={() => void refetch()}
-        >
+        <button className={css.retryButton} type="button" onClick={() => void refetch()}>
           Спробувати ще раз
         </button>
       </div>
@@ -160,27 +145,23 @@ export default function LocationsGrid() {
       aria-label="Результати пошуку"
       aria-busy={isFetching}
     >
-      <ul className={css.grid}>
+      <m.ul className={css.grid} variants={staggerList} initial="hidden" animate="show">
         {items.map((location, index) => (
-          <li
+          <m.li
+            variants={staggerItem}
             key={location._id}
-            ref={
-              index === newPageStart.current
-                ? firstNewItem
-                : undefined
-            }
+            ref={index === newPageStart.current ? firstNewItem : undefined}
           >
             <LocationCard
               location={{
                 ...location,
                 locationType:
-                  typeNames.get(location.locationType) ??
-                  location.locationType,
+                  typeNames.get(location.locationType) ?? location.locationType,
               }}
             />
-          </li>
+          </m.li>
         ))}
-      </ul>
+      </m.ul>
 
       {hasNextPage && (
         <div className={css.moreWrap}>
@@ -191,9 +172,7 @@ export default function LocationsGrid() {
             onClick={showMore}
             disabled={isFetchingNextPage}
           >
-            {isFetchingNextPage
-              ? 'Завантажуємо…'
-              : 'Показати ще'}
+            {isFetchingNextPage ? 'Завантажуємо…' : 'Показати ще'}
           </Button>
         </div>
       )}
