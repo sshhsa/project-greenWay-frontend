@@ -32,6 +32,7 @@ export default function LocationSearch({ onSelect }: Props) {
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'Сталася помилка під час пошуку');
       setResults([]);
+      setHasSearched(false); // помилка — це не «нічого не знайдено», показуємо лише тост
     } finally {
       setIsLoading(false);
     }
