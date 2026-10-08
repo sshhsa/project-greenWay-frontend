@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import type { Coordinates } from '@/types/geocode';
-import { isValidCoordinates } from './coordinates';
+import { isSameCoordinates, isValidCoordinates } from './coordinates';
 import css from './MapView.module.css';
 
 type Props = {
@@ -24,27 +24,44 @@ const markerIcon = L.icon({
 });
 
 const defaultCenter: Coordinates = { lat: 50.4501, lon: 30.5234 };
+const defaultZoom = 6;
+const selectedZoom = 12;
 
 function MapEvents({
-  center,
+  position,
   onPick,
 }: {
-  center: Coordinates;
+  position: Coordinates | null;
   onPick?: Props['onPick'];
 }) {
   const map = useMap();
+  // остання точка, обрана кліком: її повернення через props не має рухати карту під курсором
+  const lastPick = useRef<Coordinates | null>(null);
+
   useMapEvents({
     click(event) {
       if (!onPick) return;
       const point = event.latlng.wrap();
       const coordinates = { lat: point.lat, lon: point.lng };
-      if (isValidCoordinates(coordinates)) onPick(coordinates);
+      if (!isValidCoordinates(coordinates)) return;
+      lastPick.current = coordinates;
+      onPick(coordinates);
     },
   });
 
+  const lat = position?.lat;
+  const lon = position?.lon;
+
   useEffect(() => {
-    map.setView([center.lat, center.lon], map.getZoom());
-  }, [map, center.lat, center.lon]);
+    if (lat === undefined || lon === undefined) {
+      lastPick.current = null;
+      map.setView([defaultCenter.lat, defaultCenter.lon], map.getZoom());
+      return;
+    }
+    if (isSameCoordinates(lastPick.current, { lat, lon })) return;
+    // координати прийшли ззовні (пошук, дані локації): центруємо й наближаємо до точки
+    map.setView([lat, lon], Math.max(map.getZoom(), selectedZoom));
+  }, [map, lat, lon]);
 
   return null;
 }
@@ -63,7 +80,7 @@ export default function LeafletMap({ coordinates, onPick }: Props) {
     <MapContainer
       className={css.container}
       center={[center.lat, center.lon]}
-      zoom={position ? 12 : 6}
+      zoom={position ? selectedZoom : defaultZoom}
       zoomControl={Boolean(onPick)}
       keyboard={Boolean(onPick)}
       dragging={Boolean(onPick)}
@@ -77,7 +94,7 @@ export default function LeafletMap({ coordinates, onPick }: Props) {
         url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <MapEvents
-        center={center}
+        position={position}
         onPick={
           onPick
             ? (point) => {

@@ -11,7 +11,7 @@ const compiled = ts.transpileModule(source, {
 }).outputText;
 const exportsObject = {};
 runInNewContext(compiled, { exports: exportsObject });
-const { isValidCoordinates } = exportsObject;
+const { isValidCoordinates, isSameCoordinates } = exportsObject;
 
 test('accepts zero, ordinary coordinates and inclusive geographic bounds', () => {
   for (const value of [
@@ -41,4 +41,14 @@ test('rejects missing, nonnumeric, nonfinite and out-of-range coordinates', () =
     { lat: 0, lon: 180.001 },
   ])
     assert.equal(isValidCoordinates(value), false);
+});
+
+test('compares coordinates by value, keeping lat/lon order', () => {
+  assert.equal(isSameCoordinates({ lat: 50.45, lon: 30.52 }, { lat: 50.45, lon: 30.52 }), true);
+  assert.equal(isSameCoordinates({ lat: 0, lon: 0 }, { lat: 0, lon: 0 }), true);
+  assert.equal(isSameCoordinates({ lat: 50.45, lon: 30.52 }, { lat: 30.52, lon: 50.45 }), false);
+  assert.equal(isSameCoordinates({ lat: 50.45, lon: 30.52 }, { lat: 50.45, lon: 30.5201 }), false);
+  assert.equal(isSameCoordinates(null, { lat: 0, lon: 0 }), false);
+  assert.equal(isSameCoordinates({ lat: 0, lon: 0 }, undefined), false);
+  assert.equal(isSameCoordinates(null, null), false);
 });
