@@ -14,3 +14,8 @@ export const isValidCoordinates = (value: unknown): value is Coordinates => {
     lon <= 180
   );
 };
+
+export const isSameCoordinates = (
+  a: Coordinates | null | undefined,
+  b: Coordinates | null | undefined,
+): boolean => Boolean(a && b && a.lat === b.lat && a.lon === b.lon);

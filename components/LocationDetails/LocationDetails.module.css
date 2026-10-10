@@ -19,10 +19,11 @@
 }
 
 .image {
+  display: block;
   border-radius: var(--radius-lg);
   width: 100%;
   height: auto;
-aspect-ratio: 335 / 224;
+  aspect-ratio: 755 / 502;
   object-fit: cover;
 }
 
@@ -30,12 +31,14 @@ aspect-ratio: 335 / 224;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  min-width: 0;
 }
 
 .rate {
   display: flex;
   flex-direction: row;
-  gap: var(--space-2); /*=== уточнити чи потрібні стилі для рейтинга  ===*/
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .title {
@@ -43,6 +46,7 @@ aspect-ratio: 335 / 224;
   font-size: var(--fs-h1);
   line-height: var(--lh-h1);
   letter-spacing: var(--ls-heading);
+  overflow-wrap: anywhere;
 }
 
 .list {
@@ -58,13 +62,16 @@ aspect-ratio: 335 / 224;
 
 .item {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-2);
+  overflow-wrap: anywhere;
 }
 
 .description {
   font-weight: var(--fw-regular);
   font-size: var(--fs-text-regular);
   line-height: var(--lh-text);
+  overflow-wrap: anywhere;
 }
 .link{
     text-decoration: underline;
@@ -92,6 +99,15 @@ aspect-ratio: 335 / 224;
     flex-direction: row-reverse;
     justify-content: center;
     align-items: center;
+  }
+
+  .image {
+    flex: 0 1 755px;
+    min-width: 0;
+  }
+
+  .info {
+    flex: 1 1 0;
   }
 
   .description {
